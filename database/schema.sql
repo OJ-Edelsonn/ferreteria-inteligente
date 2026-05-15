@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS interacciones (
     tipo_interaccion ENUM('busqueda','producto_visto') NOT NULL,
     producto_id INT NULL,
     termino_busqueda VARCHAR(150) NULL,
+    resultados INT NULL,
     usuario VARCHAR(120) NULL,
     ip VARCHAR(45) NULL,
     user_agent VARCHAR(255) NULL,
@@ -68,4 +69,3 @@ INSERT INTO productos (categoria_id, nombre, descripcion, precio, stock, imagen)
 (3, 'Foco LED 15W', 'Foco LED de bajo consumo.', 9.90, 60, NULL),
 (4, 'Brocha 4 pulgadas', 'Brocha para pintura de interiores y exteriores.', 8.50, 35, NULL),
 (5, 'Tubo PVC 2 pulgadas', 'Tubo PVC para instalaciones sanitarias.', 16.00, 25, NULL);
-

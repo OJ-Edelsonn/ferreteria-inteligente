@@ -3,48 +3,27 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../app/Models/ProductModel.php';
 
 $productos = [];
+$totalProductos = 0;
 $dbOk = true;
 $error = null;
 
 try {
-    $conn = getConnection();
-    $stmt = $conn->query(
-        "SELECT p.id, p.nombre, p.descripcion, p.precio, p.stock, c.nombre AS categoria
-         FROM productos p
-         INNER JOIN categorias c ON c.id = p.categoria_id
-         WHERE p.activo = 1
-         ORDER BY p.nombre ASC
-         LIMIT 12"
-    );
-    $productos = $stmt->fetchAll();
+    $productModel = new ProductModel(getConnection());
+    $productos = $productModel->getFeatured(6);
+    $totalProductos = $productModel->countActive();
 } catch (Throwable $exception) {
     $dbOk = false;
     $error = $exception->getMessage();
 }
 
-?>
-<!doctype html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ferreteria Inteligente</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/styles.css" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="index.php">Ferreteria Inteligente</a>
-            <div class="d-flex gap-2">
-                <a class="btn btn-outline-dark btn-sm" href="#">Catalogo</a>
-                <a class="btn btn-danger btn-sm" href="#">Admin</a>
-            </div>
-        </div>
-    </nav>
+$pageTitle = 'Ferreteria Inteligente';
+$activePage = 'inicio';
+require_once __DIR__ . '/../app/Views/partials/header.php';
 
+?>
     <main>
         <section class="hero-section">
             <div class="container">
@@ -55,12 +34,16 @@ try {
                         <p class="lead">
                             Una ferreteria digital con productos, busqueda, administracion e interacciones listas para analisis.
                         </p>
+                        <div class="d-flex flex-wrap gap-2 mt-4">
+                            <a class="btn btn-danger" href="<?= e(BASE_URL) ?>/catalogo.php">Explorar catalogo</a>
+                            <a class="btn btn-outline-dark" href="#datos">Ver enfoque de datos</a>
+                        </div>
                     </div>
                     <div class="col-lg-5">
                         <div class="metric-panel">
-                            <span>Dato clave</span>
-                            <strong>Interacciones</strong>
-                            <p>Busquedas y productos vistos se guardaran para entender el comportamiento del cliente.</p>
+                            <span>Productos activos</span>
+                            <strong><?= e($totalProductos) ?></strong>
+                            <p>La siguiente fase usa cada busqueda y vista de producto como dato para analisis.</p>
                         </div>
                     </div>
                 </div>
@@ -72,15 +55,16 @@ try {
                 <div class="d-flex justify-content-between align-items-end gap-3 mb-4">
                     <div>
                         <h2 class="h4 fw-bold mb-1">Primeros productos</h2>
-                        <p class="text-secondary mb-0">Vista inicial conectada a MySQL cuando la base este importada.</p>
+                        <p class="text-secondary mb-0">Vista inicial conectada a MySQL.</p>
                     </div>
+                    <a class="btn btn-sm btn-outline-dark" href="<?= e(BASE_URL) ?>/catalogo.php">Ver todo</a>
                 </div>
 
                 <?php if (!$dbOk): ?>
                     <div class="alert alert-warning">
                         La aplicacion esta lista, pero falta importar la base de datos o revisar la conexion.
                         <br>
-                        <small><?= htmlspecialchars($error ?? '') ?></small>
+                        <small><?= e($error) ?></small>
                     </div>
                 <?php endif; ?>
 
@@ -88,23 +72,47 @@ try {
                     <?php foreach ($productos as $producto): ?>
                         <div class="col-md-6 col-lg-4">
                             <article class="product-card">
-                                <span class="badge text-bg-light"><?= htmlspecialchars($producto['categoria']) ?></span>
-                                <h3><?= htmlspecialchars($producto['nombre']) ?></h3>
-                                <p><?= htmlspecialchars($producto['descripcion'] ?? 'Producto de ferreteria') ?></p>
+                                <span class="badge text-bg-light"><?= e($producto['categoria']) ?></span>
+                                <h3><?= e($producto['nombre']) ?></h3>
+                                <p><?= e($producto['descripcion'] ?? 'Producto de ferreteria') ?></p>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <strong>S/ <?= number_format((float) $producto['precio'], 2) ?></strong>
-                                    <small>Stock: <?= (int) $producto['stock'] ?></small>
+                                    <strong>S/ <?= e(number_format((float) $producto['precio'], 2)) ?></strong>
+                                    <small>Stock: <?= e((int) $producto['stock']) ?></small>
                                 </div>
+                                <a class="stretched-link" href="<?= e(BASE_URL) ?>/producto.php?id=<?= e($producto['id']) ?>" aria-label="Ver <?= e($producto['nombre']) ?>"></a>
                             </article>
                         </div>
                     <?php endforeach; ?>
                 </div>
             </div>
         </section>
-    </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/app.js"></script>
-</body>
-</html>
+        <section class="data-section" id="datos">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-5">
+                        <p class="eyebrow">Diferenciador</p>
+                        <h2>El catalogo se convierte en fuente de datos.</h2>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="data-tile">
+                                    <strong>Busquedas</strong>
+                                    <span>Guardamos el termino buscado y cuantos resultados obtuvo.</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="data-tile">
+                                    <strong>Producto visto</strong>
+                                    <span>Registramos cada visita al detalle de un producto.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+<?php require_once __DIR__ . '/../app/Views/partials/footer.php'; ?>
 

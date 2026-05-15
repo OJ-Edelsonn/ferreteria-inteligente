@@ -45,7 +45,30 @@ ferreteria-inteligente/
 7. Revisar credenciales locales en `config/config.php`.
 8. Abrir `http://localhost/ferreteria-inteligente/public/`.
 
+## URLs Locales
+
+- Inicio: `http://localhost/ferreteria-inteligente/public/`
+- Catalogo: `http://localhost/ferreteria-inteligente/public/catalogo.php`
+- Detalle de producto: `http://localhost/ferreteria-inteligente/public/producto.php?id=1`
+
+## Funcionalidades Implementadas
+
+- Home publica conectada a MySQL.
+- Catalogo de productos.
+- Busqueda por nombre, descripcion o categoria.
+- Filtro por categoria.
+- Detalle de producto.
+- Registro de busquedas en `interacciones`.
+- Registro de vistas de producto en `interacciones`.
+
+## Flujo De Datos
+
+1. El cliente abre el catalogo.
+2. El sistema consulta productos activos en MySQL.
+3. Si el cliente busca un termino, se guarda una interaccion de tipo `busqueda`.
+4. Si el cliente abre un detalle, se guarda una interaccion de tipo `producto_visto`.
+5. Estos datos quedan disponibles para el futuro dashboard administrativo.
+
 ## Estado
 
-Proyecto en fase inicial de planificacion y estructura base.
-
+Proyecto en fase de catalogo publico inteligente. La siguiente etapa es construir el panel de administrador con login y CRUD de productos.

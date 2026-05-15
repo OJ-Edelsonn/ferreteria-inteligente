@@ -319,3 +319,31 @@ Dominio inicial sugerido:
 - `ferreteria-inteligente.rf.gd`
 - `ferreteriainteligente.great-site.net`
 
+## 16. Avance Actual
+
+### Completado
+
+- Carpeta del proyecto creada en XAMPP.
+- Repositorio Git inicializado.
+- Proyecto subido a GitHub.
+- Documento maestro creado.
+- README inicial creado.
+- Base de datos local creada.
+- Tabla `interacciones` creada.
+- Home publica conectada a MySQL.
+- Catalogo publico creado.
+- Busqueda de productos creada.
+- Filtro por categoria creado.
+- Detalle de producto creado.
+- Registro de busquedas implementado.
+- Registro de producto visto implementado.
+
+### Siguiente Etapa
+
+Construir el panel de administrador:
+
+- Login.
+- Proteccion por sesion.
+- CRUD de productos.
+- Vista inicial de interacciones.
+
