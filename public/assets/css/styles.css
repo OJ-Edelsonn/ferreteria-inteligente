@@ -1,0 +1,89 @@
+:root {
+    --fi-ink: #172033;
+    --fi-muted: #64748b;
+    --fi-red: #c0392b;
+    --fi-line: #e5e7eb;
+    --fi-soft: #f5f7fb;
+}
+
+body {
+    color: var(--fi-ink);
+    background: #fff;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+    border-bottom: 1px solid var(--fi-line);
+    padding: 5rem 0 4rem;
+}
+
+.eyebrow {
+    color: var(--fi-red);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+}
+
+h1 {
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0;
+    max-width: 720px;
+}
+
+.lead {
+    color: var(--fi-muted);
+    max-width: 620px;
+}
+
+.metric-panel,
+.product-card {
+    background: #fff;
+    border: 1px solid var(--fi-line);
+    border-radius: 8px;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.metric-panel {
+    padding: 1.5rem;
+}
+
+.metric-panel span {
+    color: var(--fi-muted);
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+}
+
+.metric-panel strong {
+    display: block;
+    font-size: 2rem;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+}
+
+.metric-panel p {
+    color: var(--fi-muted);
+    margin: 0;
+}
+
+.product-card {
+    height: 100%;
+    padding: 1.25rem;
+}
+
+.product-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0.8rem 0 0.4rem;
+}
+
+.product-card p {
+    color: var(--fi-muted);
+    min-height: 48px;
+}
+
