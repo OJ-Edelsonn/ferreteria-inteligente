@@ -14,6 +14,10 @@ CREATE TABLE IF NOT EXISTS usuarios (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+INSERT INTO usuarios (nombre, email, password, rol, activo) VALUES
+('Administrador', 'admin@ferreteria.test', '$2y$10$1a1gDcNjpUwlZu7Iyc7f9e8yWdX7MR/3lL7/exPX0OL2qzzVAaGD2', 'administrador', 1)
+ON DUPLICATE KEY UPDATE nombre = VALUES(nombre), rol = VALUES(rol), activo = VALUES(activo);
+
 CREATE TABLE IF NOT EXISTS categorias (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,

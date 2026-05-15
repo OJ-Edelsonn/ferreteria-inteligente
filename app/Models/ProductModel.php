@@ -11,7 +11,7 @@ class ProductModel
     public function getFeatured(int $limit = 6): array
     {
         $stmt = $this->db->prepare(
-            "SELECT p.id, p.nombre, p.descripcion, p.precio, p.stock, p.imagen, c.nombre AS categoria
+            "SELECT p.id, p.categoria_id, p.nombre, p.descripcion, p.precio, p.stock, p.imagen, c.nombre AS categoria
              FROM productos p
              INNER JOIN categorias c ON c.id = p.categoria_id
              WHERE p.activo = 1
@@ -59,7 +59,7 @@ class ProductModel
     public function find(int $id): ?array
     {
         $stmt = $this->db->prepare(
-            "SELECT p.id, p.nombre, p.descripcion, p.precio, p.stock, p.imagen, c.nombre AS categoria
+            "SELECT p.id, p.categoria_id, p.nombre, p.descripcion, p.precio, p.stock, p.imagen, c.nombre AS categoria
              FROM productos p
              INNER JOIN categorias c ON c.id = p.categoria_id
              WHERE p.id = :id AND p.activo = 1
@@ -88,5 +88,68 @@ class ProductModel
         return (int) $this->db
             ->query("SELECT COUNT(*) FROM productos WHERE activo = 1")
             ->fetchColumn();
+    }
+
+    public function countLowStock(int $threshold = 10): int
+    {
+        $stmt = $this->db->prepare(
+            "SELECT COUNT(*)
+             FROM productos
+             WHERE activo = 1 AND stock <= :threshold"
+        );
+        $stmt->execute(['threshold' => $threshold]);
+
+        return (int) $stmt->fetchColumn();
+    }
+
+    public function create(array $data): int
+    {
+        $stmt = $this->db->prepare(
+            "INSERT INTO productos
+                (categoria_id, nombre, descripcion, precio, stock, imagen)
+             VALUES
+                (:categoria_id, :nombre, :descripcion, :precio, :stock, :imagen)"
+        );
+        $stmt->execute($this->productParams($data));
+
+        return (int) $this->db->lastInsertId();
+    }
+
+    public function update(int $id, array $data): bool
+    {
+        $params = $this->productParams($data);
+        $params['id'] = $id;
+
+        $stmt = $this->db->prepare(
+            "UPDATE productos SET
+                categoria_id = :categoria_id,
+                nombre = :nombre,
+                descripcion = :descripcion,
+                precio = :precio,
+                stock = :stock,
+                imagen = :imagen
+             WHERE id = :id AND activo = 1"
+        );
+
+        return $stmt->execute($params);
+    }
+
+    public function deactivate(int $id): bool
+    {
+        $stmt = $this->db->prepare("UPDATE productos SET activo = 0 WHERE id = :id");
+
+        return $stmt->execute(['id' => $id]);
+    }
+
+    private function productParams(array $data): array
+    {
+        return [
+            'categoria_id' => (int) $data['categoria_id'],
+            'nombre' => trim((string) $data['nombre']),
+            'descripcion' => trim((string) ($data['descripcion'] ?? '')),
+            'precio' => (float) $data['precio'],
+            'stock' => (int) $data['stock'],
+            'imagen' => trim((string) ($data['imagen'] ?? '')) ?: null,
+        ];
     }
 }

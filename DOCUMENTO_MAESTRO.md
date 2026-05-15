@@ -337,13 +337,19 @@ Dominio inicial sugerido:
 - Detalle de producto creado.
 - Registro de busquedas implementado.
 - Registro de producto visto implementado.
+- Login de administrador implementado.
+- Sesiones privadas implementadas.
+- Proteccion CSRF en formularios admin.
+- Dashboard administrador implementado.
+- CRUD de productos implementado.
+- Vista de interacciones implementada.
 
 ### Siguiente Etapa
 
-Construir el panel de administrador:
+Mejorar el panel de administrador:
 
-- Login.
-- Proteccion por sesion.
-- CRUD de productos.
-- Vista inicial de interacciones.
-
+- Graficos de interacciones.
+- Busquedas sin resultados destacadas.
+- Mejoras visuales y responsive.
+- Preparacion de capturas para demo.
+- Preparacion de deploy.

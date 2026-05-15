@@ -28,7 +28,7 @@ $activePage = $activePage ?? '';
                 <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
                     <a class="nav-link <?= e(isActive($activePage, 'inicio')) ?>" href="<?= e(BASE_URL) ?>/index.php">Inicio</a>
                     <a class="btn btn-sm <?= $activePage === 'catalogo' ? 'btn-dark' : 'btn-outline-dark' ?>" href="<?= e(BASE_URL) ?>/catalogo.php">Catalogo</a>
-                    <a class="btn btn-danger btn-sm" href="#">Admin</a>
+                    <a class="btn btn-danger btn-sm" href="<?= e(BASE_URL) ?>/admin/login.php">Admin</a>
                 </div>
             </div>
         </div>

@@ -55,3 +55,20 @@ Con estos datos se podra responder:
 - Que categorias generan mas interes.
 - Que productos del catalogo casi no reciben visitas.
 
+## 5. Panel Administrador
+
+El administrador entra por `public/admin/login.php`.
+
+El sistema:
+
+- Valida correo y contrasena contra la tabla `usuarios`.
+- Crea una sesion privada.
+- Protege rutas internas con `requireAdmin()`.
+- Usa token CSRF para formularios del panel.
+
+Desde el panel se puede:
+
+- Ver metricas generales.
+- Crear, editar y desactivar productos.
+- Revisar interacciones recientes.
+- Identificar busquedas frecuentes y productos mas vistos.

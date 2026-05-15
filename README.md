@@ -50,6 +50,8 @@ ferreteria-inteligente/
 - Inicio: `http://localhost/ferreteria-inteligente/public/`
 - Catalogo: `http://localhost/ferreteria-inteligente/public/catalogo.php`
 - Detalle de producto: `http://localhost/ferreteria-inteligente/public/producto.php?id=1`
+- Login admin: `http://localhost/ferreteria-inteligente/public/admin/login.php`
+- Dashboard admin: `http://localhost/ferreteria-inteligente/public/admin/index.php`
 
 ## Funcionalidades Implementadas
 
@@ -60,6 +62,18 @@ ferreteria-inteligente/
 - Detalle de producto.
 - Registro de busquedas en `interacciones`.
 - Registro de vistas de producto en `interacciones`.
+- Login de administrador con sesion.
+- Proteccion de rutas privadas.
+- CRUD de productos desde panel admin.
+- Dashboard con metricas basicas.
+- Vista admin de interacciones capturadas.
+
+## Credenciales Locales Iniciales
+
+- Correo: `admin@ferreteria.test`
+- Contrasena: `Admin12345`
+
+Estas credenciales son solo para desarrollo local. En produccion deben cambiarse.
 
 ## Flujo De Datos
 
@@ -71,4 +85,4 @@ ferreteria-inteligente/
 
 ## Estado
 
-Proyecto en fase de catalogo publico inteligente. La siguiente etapa es construir el panel de administrador con login y CRUD de productos.
+Proyecto en fase de panel administrativo inicial. La siguiente etapa es mejorar el dashboard, agregar graficos y preparar evidencias para deploy.
