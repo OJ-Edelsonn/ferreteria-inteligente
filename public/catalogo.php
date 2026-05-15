@@ -32,7 +32,7 @@ try {
     $error = $exception->getMessage();
 }
 
-$pageTitle = 'Catalogo - Ferreteria Inteligente';
+$pageTitle = 'Catalogo - ' . BUSINESS_NAME;
 $activePage = 'catalogo';
 require_once __DIR__ . '/../app/Views/partials/header.php';
 
@@ -40,11 +40,11 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
     <main>
         <section class="catalog-header">
             <div class="container">
-                <p class="eyebrow">Catalogo inteligente</p>
+                <p class="eyebrow"><?= e(BUSINESS_NAME) ?> - <?= e(BUSINESS_LOCATION) ?></p>
                 <div class="row g-3 align-items-end">
                     <div class="col-lg-7">
                         <h1>Productos disponibles</h1>
-                        <p class="lead mb-0">Busca productos y convierte cada consulta en datos utiles para la ferreteria.</p>
+                        <p class="lead mb-0">Busca productos y convierte cada consulta en datos utiles para mejorar el catalogo de la ferreteria.</p>
                     </div>
                     <div class="col-lg-5">
                         <form class="search-box" method="get" action="catalogo.php">
@@ -130,4 +130,3 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
         </section>
     </main>
 <?php require_once __DIR__ . '/../app/Views/partials/footer.php'; ?>
-

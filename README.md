@@ -1,6 +1,6 @@
-# Ferreteria Inteligente
+# J&S Ferretería Inteligente
 
-Sistema web full stack para una ferreteria que combina catalogo de productos, administracion e interacciones del cliente para analisis.
+Sistema web full stack para **J&S Ferretería**, ubicada en **Quiparacra - Pasco**, que combina catalogo de productos, administracion e interacciones del cliente para analisis.
 
 ## Stack
 
@@ -50,6 +50,7 @@ ferreteria-inteligente/
 - Inicio: `http://localhost/ferreteria-inteligente/public/`
 - Catalogo: `http://localhost/ferreteria-inteligente/public/catalogo.php`
 - Detalle de producto: `http://localhost/ferreteria-inteligente/public/producto.php?id=1`
+- Contacto: `http://localhost/ferreteria-inteligente/public/contacto.php`
 - Login admin: `http://localhost/ferreteria-inteligente/public/admin/login.php`
 - Dashboard admin: `http://localhost/ferreteria-inteligente/public/admin/index.php`
 
@@ -62,11 +63,20 @@ ferreteria-inteligente/
 - Detalle de producto.
 - Registro de busquedas en `interacciones`.
 - Registro de vistas de producto en `interacciones`.
+- Pagina de contacto con WhatsApp.
 - Login de administrador con sesion.
 - Proteccion de rutas privadas.
 - CRUD de productos desde panel admin.
-- Dashboard con metricas basicas.
+- Dashboard con metricas y graficos.
 - Vista admin de interacciones capturadas.
+
+## Datos Del Negocio
+
+- Nombre: `J&S Ferretería`
+- Ubicacion: `Quiparacra - Pasco`
+- Direccion: `Calle San Cristóbal S/N - Quiparacra - Huachón - Pasco`
+- WhatsApp: `900 749 742`
+- Horario: `Lunes a sábado: 7:00am - 7:00pm`
 
 ## Credenciales Locales Iniciales
 
@@ -85,4 +95,4 @@ Estas credenciales son solo para desarrollo local. En produccion deben cambiarse
 
 ## Estado
 
-Proyecto en fase de panel administrativo inicial. La siguiente etapa es mejorar el dashboard, agregar graficos y preparar evidencias para deploy.
+Proyecto en fase de panel administrativo con analitica inicial. La siguiente etapa es preparar evidencias visuales y checklist de deploy.

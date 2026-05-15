@@ -80,6 +80,51 @@ class InteractionReportModel
         return $stmt->fetchAll();
     }
 
+    public function interactionsByDay(int $days = 7): array
+    {
+        $stmt = $this->db->prepare(
+            "SELECT DATE(fecha) AS dia, COUNT(*) AS total
+             FROM interacciones
+             WHERE fecha >= DATE_SUB(CURDATE(), INTERVAL :days DAY)
+             GROUP BY DATE(fecha)
+             ORDER BY dia ASC"
+        );
+        $stmt->bindValue(':days', $days, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    public function interactionsByType(): array
+    {
+        $stmt = $this->db->query(
+            "SELECT tipo_interaccion, COUNT(*) AS total
+             FROM interacciones
+             GROUP BY tipo_interaccion
+             ORDER BY total DESC"
+        );
+
+        return $stmt->fetchAll();
+    }
+
+    public function searchesWithoutResultsList(int $limit = 6): array
+    {
+        $stmt = $this->db->prepare(
+            "SELECT termino_busqueda, COUNT(*) AS total, MAX(fecha) AS ultima_fecha
+             FROM interacciones
+             WHERE tipo_interaccion = 'busqueda'
+               AND resultados = 0
+               AND termino_busqueda IS NOT NULL
+             GROUP BY termino_busqueda
+             ORDER BY total DESC, ultima_fecha DESC
+             LIMIT :limit"
+        );
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
     private function countByType(string $type): int
     {
         $stmt = $this->db->prepare('SELECT COUNT(*) FROM interacciones WHERE tipo_interaccion = :type');
@@ -88,4 +133,3 @@ class InteractionReportModel
         return (int) $stmt->fetchColumn();
     }
 }
-

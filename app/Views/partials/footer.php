@@ -1,7 +1,7 @@
     <footer class="site-footer">
         <div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
-            <span>Ferreteria Inteligente</span>
-            <span>Proyecto web con captura de interacciones</span>
+            <span><?= e(BUSINESS_NAME) ?> - <?= e(BUSINESS_LOCATION) ?></span>
+            <span>Catalogo web con captura de interacciones</span>
         </div>
     </footer>
 
@@ -9,4 +9,3 @@
     <script src="<?= e(BASE_URL) ?>/assets/js/app.js"></script>
 </body>
 </html>
-

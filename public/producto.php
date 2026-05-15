@@ -31,7 +31,7 @@ try {
     $error = $exception->getMessage();
 }
 
-$pageTitle = ($producto['nombre'] ?? 'Producto') . ' - Ferreteria Inteligente';
+$pageTitle = ($producto['nombre'] ?? 'Producto') . ' - ' . BUSINESS_NAME;
 $activePage = 'catalogo';
 require_once __DIR__ . '/../app/Views/partials/header.php';
 
@@ -85,4 +85,3 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
         </section>
     </main>
 <?php require_once __DIR__ . '/../app/Views/partials/footer.php'; ?>
-

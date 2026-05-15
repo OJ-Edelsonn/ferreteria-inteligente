@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login administrador</title>
+    <title>Login administrador - <?= e(BUSINESS_NAME) ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?= e(BASE_URL) ?>/assets/css/styles.css" rel="stylesheet">
 </head>
@@ -51,8 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <main class="login-shell">
         <section class="login-info">
             <p class="eyebrow">Panel privado</p>
-            <h1>Gestiona productos y convierte visitas en datos.</h1>
-            <p>Desde aqui se administrara el catalogo y se revisaran las interacciones capturadas por el sitio.</p>
+            <h1>Gestiona <?= e(BUSINESS_NAME) ?> y convierte visitas en datos.</h1>
+            <p>Desde aqui se administrara el catalogo de <?= e(BUSINESS_LOCATION) ?> y se revisaran las interacciones capturadas por el sitio.</p>
         </section>
 
         <section class="login-card">

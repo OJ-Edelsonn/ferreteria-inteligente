@@ -22,8 +22,8 @@ $admin = currentAdmin();
 <body class="admin-body">
     <aside class="admin-sidebar">
         <div class="admin-brand">
-            <strong>Ferreteria Inteligente</strong>
-            <span>Panel administrador</span>
+            <strong><?= e(BUSINESS_NAME) ?></strong>
+            <span><?= e(BUSINESS_LOCATION) ?></span>
         </div>
         <nav class="admin-nav">
             <a class="<?= e(isActive($activePage, 'dashboard')) ?>" href="<?= e(BASE_URL) ?>/admin/index.php">Dashboard</a>
@@ -43,4 +43,3 @@ $admin = currentAdmin();
                 <h1><?= e($pageHeading ?? $pageTitle) ?></h1>
             </div>
         </header>
-

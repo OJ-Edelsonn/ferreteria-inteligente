@@ -2,8 +2,9 @@
 
 ## 1. Resumen Del Proyecto
 
-**Nombre del proyecto:** Ferreteria Inteligente  
+**Nombre del proyecto:** J&S Ferretería Inteligente  
 **Tipo:** Sistema web full stack  
+**Negocio:** J&S Ferretería, ubicada en Quiparacra - Pasco  
 **Objetivo principal:** Crear una plataforma web para una ferreteria que permita mostrar productos, administrarlos y capturar datos de comportamiento del cliente para analisis posterior.
 
 El sistema no solo funcionara como catalogo digital. Su valor diferencial sera registrar interacciones como busquedas y productos vistos, convirtiendo la web en una fuente de datos para tomar decisiones comerciales.
@@ -343,13 +344,14 @@ Dominio inicial sugerido:
 - Dashboard administrador implementado.
 - CRUD de productos implementado.
 - Vista de interacciones implementada.
+- Identidad real de J&S Ferretería integrada.
+- Pagina de contacto con WhatsApp implementada.
+- Graficos de interacciones agregados al dashboard.
 
 ### Siguiente Etapa
 
-Mejorar el panel de administrador:
+Preparar evidencias y despliegue:
 
-- Graficos de interacciones.
 - Busquedas sin resultados destacadas.
-- Mejoras visuales y responsive.
 - Preparacion de capturas para demo.
 - Preparacion de deploy.

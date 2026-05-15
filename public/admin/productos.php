@@ -108,7 +108,7 @@ $formProduct = [
     'imagen' => $editingProduct['imagen'] ?? '',
 ];
 
-$pageTitle = 'Productos - Administrador';
+$pageTitle = 'Productos - ' . BUSINESS_NAME;
 $pageHeading = 'Productos';
 $activePage = 'productos';
 require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
@@ -249,4 +249,3 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
             </div>
         </section>
 <?php require_once __DIR__ . '/../../app/Views/partials/admin-footer.php'; ?>
-

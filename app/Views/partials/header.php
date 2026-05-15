@@ -20,7 +20,7 @@ $activePage = $activePage ?? '';
 <body>
     <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="<?= e(BASE_URL) ?>/index.php">Ferreteria Inteligente</a>
+            <a class="navbar-brand fw-bold" href="<?= e(BASE_URL) ?>/index.php"><?= e(BUSINESS_NAME) ?></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Abrir menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,6 +28,7 @@ $activePage = $activePage ?? '';
                 <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
                     <a class="nav-link <?= e(isActive($activePage, 'inicio')) ?>" href="<?= e(BASE_URL) ?>/index.php">Inicio</a>
                     <a class="btn btn-sm <?= $activePage === 'catalogo' ? 'btn-dark' : 'btn-outline-dark' ?>" href="<?= e(BASE_URL) ?>/catalogo.php">Catalogo</a>
+                    <a class="nav-link <?= e(isActive($activePage, 'contacto')) ?>" href="<?= e(BASE_URL) ?>/contacto.php">Contacto</a>
                     <a class="btn btn-danger btn-sm" href="<?= e(BASE_URL) ?>/admin/login.php">Admin</a>
                 </div>
             </div>

@@ -20,7 +20,7 @@ $topSearches = $reportModel->topSearches();
 $topProducts = $reportModel->topViewedProducts();
 $recent = $reportModel->recent();
 
-$pageTitle = 'Interacciones - Administrador';
+$pageTitle = 'Interacciones - ' . BUSINESS_NAME;
 $pageHeading = 'Interacciones';
 $activePage = 'interacciones';
 require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
@@ -111,4 +111,3 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
             </div>
         </section>
 <?php require_once __DIR__ . '/../../app/Views/partials/admin-footer.php'; ?>
-

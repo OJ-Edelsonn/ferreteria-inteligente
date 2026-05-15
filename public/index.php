@@ -19,7 +19,7 @@ try {
     $error = $exception->getMessage();
 }
 
-$pageTitle = 'Ferreteria Inteligente';
+$pageTitle = BUSINESS_NAME . ' - Catalogo inteligente';
 $activePage = 'inicio';
 require_once __DIR__ . '/../app/Views/partials/header.php';
 
@@ -29,21 +29,21 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
             <div class="container">
                 <div class="row align-items-center g-4">
                     <div class="col-lg-7">
-                        <p class="eyebrow">Proyecto 3 - Sistema web full stack</p>
-                        <h1>Catalogo que tambien genera datos.</h1>
+                        <p class="eyebrow"><?= e(BUSINESS_LOCATION) ?></p>
+                        <h1><?= e(BUSINESS_NAME) ?> tambien genera datos.</h1>
                         <p class="lead">
-                            Una ferreteria digital con productos, busqueda, administracion e interacciones listas para analisis.
+                            Catalogo digital para materiales de construccion, herramientas, electricidad, pintura y gasfiteria, con datos de comportamiento listos para analisis.
                         </p>
                         <div class="d-flex flex-wrap gap-2 mt-4">
                             <a class="btn btn-danger" href="<?= e(BASE_URL) ?>/catalogo.php">Explorar catalogo</a>
-                            <a class="btn btn-outline-dark" href="#datos">Ver enfoque de datos</a>
+                            <a class="btn btn-outline-dark" href="<?= e(BASE_URL) ?>/contacto.php">Contactar por WhatsApp</a>
                         </div>
                     </div>
                     <div class="col-lg-5">
                         <div class="metric-panel">
                             <span>Productos activos</span>
                             <strong><?= e($totalProductos) ?></strong>
-                            <p>La siguiente fase usa cada busqueda y vista de producto como dato para analisis.</p>
+                            <p>Cada busqueda y vista de producto alimenta la tabla de interacciones.</p>
                         </div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                 <div class="d-flex justify-content-between align-items-end gap-3 mb-4">
                     <div>
                         <h2 class="h4 fw-bold mb-1">Primeros productos</h2>
-                        <p class="text-secondary mb-0">Vista inicial conectada a MySQL.</p>
+                        <p class="text-secondary mb-0">Productos disponibles para clientes de Quiparacra y alrededores.</p>
                     </div>
                     <a class="btn btn-sm btn-outline-dark" href="<?= e(BASE_URL) ?>/catalogo.php">Ver todo</a>
                 </div>
@@ -93,6 +93,7 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                     <div class="col-lg-5">
                         <p class="eyebrow">Diferenciador</p>
                         <h2>El catalogo se convierte en fuente de datos.</h2>
+                        <p class="data-copy">Ademas de mostrar productos, el sistema registra que buscan y que miran los clientes para mejorar decisiones de inventario.</p>
                     </div>
                     <div class="col-lg-7">
                         <div class="row g-3">
@@ -115,4 +116,3 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
         </section>
     </main>
 <?php require_once __DIR__ . '/../app/Views/partials/footer.php'; ?>
-

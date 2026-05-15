@@ -80,6 +80,10 @@ h1 {
     margin: 0;
 }
 
+.contact-highlight strong {
+    font-size: 2.3rem;
+}
+
 .product-card {
     position: relative;
     height: 100%;
@@ -117,6 +121,11 @@ h1 {
     font-size: clamp(1.8rem, 3vw, 3rem);
     font-weight: 800;
     letter-spacing: 0;
+}
+
+.data-copy {
+    color: rgba(255, 255, 255, 0.72);
+    margin: 1rem 0 0;
 }
 
 .data-tile {
@@ -276,6 +285,47 @@ h1 {
     padding: 1.25rem 0;
 }
 
+.contact-panel {
+    background: #fff;
+    border: 1px solid var(--fi-line);
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+    height: 100%;
+    padding: 1.4rem;
+}
+
+.contact-panel h2 {
+    font-size: 1.18rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.contact-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.contact-list div {
+    border-bottom: 1px solid var(--fi-line);
+    padding-bottom: 1rem;
+}
+
+.contact-list div:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+.contact-list span,
+.contact-list strong {
+    display: block;
+}
+
+.contact-list span {
+    color: var(--fi-muted);
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+}
+
 .login-body,
 .admin-body {
     background: #f4f6fa;
@@ -432,6 +482,10 @@ h1 {
     border-radius: 8px;
     box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
     padding: 1.2rem;
+}
+
+.chart-card {
+    min-height: 300px;
 }
 
 .metric-card span,
