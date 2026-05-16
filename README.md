@@ -60,6 +60,8 @@ ferreteria-inteligente/
 ## Funcionalidades Implementadas
 
 - Home publica conectada a MySQL.
+- Home enriquecida con accesos rapidos, flujo de compra, resumen por categorias y productos destacados.
+- Productos destacados calculados como cemento + los 5 productos activos de mayor precio.
 - Catalogo de productos.
 - Catalogo completo migrado desde FerreSystem: 87 productos activos con imagen referencial.
 - Busqueda por nombre, descripcion o categoria.
@@ -69,7 +71,8 @@ ferreteria-inteligente/
 - Seccion de servicios de obra para contactar al maestro albañil.
 - Registro de busquedas en `interacciones`.
 - Registro de vistas de producto en `interacciones`.
-- Pagina de contacto con WhatsApp.
+- Pagina de contacto con WhatsApp y mapa embebido de Google Maps.
+- Favicon recuperado desde la web anterior.
 - Login de administrador con sesion.
 - Proteccion de rutas privadas.
 - CRUD de productos desde panel admin.
@@ -107,4 +110,4 @@ Estas credenciales son solo para desarrollo local. En produccion deben cambiarse
 
 ## Estado
 
-Proyecto en fase de panel administrativo con analitica inicial. La siguiente etapa es preparar evidencias visuales y checklist de deploy.
+Proyecto funcional en local con catalogo completo, panel administrativo, registro de interacciones, cotizador, servicios de obra, mapa de contacto y mejoras visuales en Inicio. La siguiente etapa es preparar evidencias visuales y checklist de deploy.

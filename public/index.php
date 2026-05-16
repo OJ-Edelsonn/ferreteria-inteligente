@@ -6,6 +6,7 @@ require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../app/Models/ProductModel.php';
 
 $productos = [];
+$categoriasResumen = [];
 $totalProductos = 0;
 $dbOk = true;
 $error = null;
@@ -13,6 +14,7 @@ $error = null;
 try {
     $productModel = new ProductModel(getConnection());
     $productos = $productModel->getFeatured(6);
+    $categoriasResumen = $productModel->getCategorySummary();
     $totalProductos = $productModel->countActive();
 } catch (Throwable $exception) {
     $dbOk = false;
@@ -30,9 +32,9 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                 <div class="row align-items-center g-4">
                     <div class="col-lg-7">
                         <p class="eyebrow"><?= e(BUSINESS_LOCATION) ?></p>
-                        <h1><?= e(BUSINESS_NAME) ?> tambien genera datos.</h1>
+                        <h1>Materiales, herramientas y apoyo para tu obra en Quiparacra.</h1>
                         <p class="lead">
-                            Catalogo digital para materiales de construccion, herramientas, electricidad, pintura y gasfiteria, con datos de comportamiento listos para analisis.
+                            Revisa productos disponibles, arma una cotizacion y contacta por WhatsApp a J&S Ferretería para confirmar precios, stock o servicios de obra.
                         </p>
                         <div class="d-flex flex-wrap gap-2 mt-4">
                             <a class="btn btn-danger" href="<?= e(BASE_URL) ?>/catalogo.php">Explorar catalogo</a>
@@ -41,10 +43,59 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                     </div>
                     <div class="col-lg-5">
                         <div class="metric-panel">
-                            <span>Productos activos</span>
-                            <strong><?= e($totalProductos) ?></strong>
-                            <p>Cada busqueda y vista de producto alimenta la tabla de interacciones.</p>
+                            <span>Catalogo disponible</span>
+                            <strong><?= e($totalProductos) ?> productos</strong>
+                            <p>Materiales de construccion, herramientas, electricidad, pintura, gasfiteria y mas.</p>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quick-actions-section">
+            <div class="container">
+                <div class="quick-actions-grid">
+                    <a class="quick-action" href="<?= e(BASE_URL) ?>/catalogo.php">
+                        <strong>Ver catalogo</strong>
+                        <span>Explora todos los productos activos con imagen y precio.</span>
+                    </a>
+                    <a class="quick-action" href="<?= e(BASE_URL) ?>/cotizador.php">
+                        <strong>Cotizar materiales</strong>
+                        <span>Selecciona productos y envia tu lista por WhatsApp.</span>
+                    </a>
+                    <a class="quick-action" href="<?= e(BASE_URL) ?>/servicios.php">
+                        <strong>Servicios de obra</strong>
+                        <span>Consulta por construccion, remodelacion y acabados.</span>
+                    </a>
+                    <a class="quick-action" href="<?= e(BASE_URL) ?>/contacto.php">
+                        <strong>Ubicacion y contacto</strong>
+                        <span>Encuentra la ferreteria y escribe directamente.</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="purchase-flow-section">
+            <div class="container">
+                <div class="section-kicker">
+                    <p class="eyebrow">Compra practica</p>
+                    <h2>Avanza de la consulta a tu obra con menos vueltas.</h2>
+                </div>
+                <div class="purchase-flow-grid">
+                    <div class="purchase-flow-item">
+                        <span>01</span>
+                        <strong>Busca por material</strong>
+                        <p>Encuentra cemento, tubos, pinturas, herramientas y accesorios desde el catalogo completo.</p>
+                    </div>
+                    <div class="purchase-flow-item">
+                        <span>02</span>
+                        <strong>Arma tu cotizacion</strong>
+                        <p>Selecciona productos, cantidades y envia tu lista para confirmar precio y disponibilidad.</p>
+                    </div>
+                    <div class="purchase-flow-item">
+                        <span>03</span>
+                        <strong>Coordina entrega o servicio</strong>
+                        <p>Contacta a J&S Ferreteria para compras locales o apoyo de maestro albañil en tu obra.</p>
                     </div>
                 </div>
             </div>
@@ -54,8 +105,8 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
             <div class="container">
                 <div class="d-flex justify-content-between align-items-end gap-3 mb-4">
                     <div>
-                        <h2 class="h4 fw-bold mb-1">Primeros productos</h2>
-                        <p class="text-secondary mb-0">Productos disponibles para clientes de Quiparacra y alrededores.</p>
+                        <h2 class="h4 fw-bold mb-1">Productos destacados</h2>
+                        <p class="text-secondary mb-0">Incluye cemento y productos de mayor precio para compras importantes.</p>
                     </div>
                     <a class="btn btn-sm btn-outline-dark" href="<?= e(BASE_URL) ?>/catalogo.php">Ver todo</a>
                 </div>
@@ -87,6 +138,24 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                                 <a class="stretched-link" href="<?= e(BASE_URL) ?>/producto.php?id=<?= e($producto['id']) ?>" aria-label="Ver <?= e($producto['nombre']) ?>"></a>
                             </article>
                         </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+
+        <section class="category-overview-section">
+            <div class="container">
+                <div class="section-kicker">
+                    <p class="eyebrow">Categorias</p>
+                    <h2>Encuentra lo que necesitas por tipo de trabajo.</h2>
+                </div>
+                <div class="category-overview-grid">
+                    <?php foreach ($categoriasResumen as $categoria): ?>
+                        <a class="category-overview-card" href="<?= e(BASE_URL) ?>/catalogo.php?categoria=<?= e($categoria['id']) ?>">
+                            <span><?= e($categoria['productos']) ?> productos</span>
+                            <strong><?= e($categoria['nombre']) ?></strong>
+                            <p><?= e($categoria['descripcion'] ?? 'Productos disponibles en catalogo') ?></p>
+                        </a>
                     <?php endforeach; ?>
                 </div>
             </div>

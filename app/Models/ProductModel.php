@@ -10,18 +10,54 @@ class ProductModel
 
     public function getFeatured(int $limit = 6): array
     {
+        $featured = [];
+
+        $cementStmt = $this->db->prepare(
+            "SELECT p.id, p.categoria_id, p.nombre, p.descripcion, p.precio, p.stock, p.imagen, c.nombre AS categoria
+             FROM productos p
+             INNER JOIN categorias c ON c.id = p.categoria_id
+             WHERE p.activo = 1 AND p.nombre LIKE :term
+             ORDER BY p.precio DESC, p.nombre ASC
+             LIMIT 1"
+        );
+        $cementStmt->execute(['term' => '%cemento%']);
+        $cement = $cementStmt->fetch();
+
+        if ($cement) {
+            $featured[] = $cement;
+        }
+
+        $remaining = max(0, $limit - count($featured));
+        if ($remaining === 0) {
+            return $featured;
+        }
+
+        $excludedIds = array_map(static fn(array $product): int => (int) $product['id'], $featured);
+        $excludeSql = '';
+        $params = [];
+
+        foreach ($excludedIds as $index => $id) {
+            $key = 'excluded_' . $index;
+            $excludeSql .= " AND p.id != :{$key}";
+            $params[$key] = $id;
+        }
+
         $stmt = $this->db->prepare(
             "SELECT p.id, p.categoria_id, p.nombre, p.descripcion, p.precio, p.stock, p.imagen, c.nombre AS categoria
              FROM productos p
              INNER JOIN categorias c ON c.id = p.categoria_id
              WHERE p.activo = 1
-             ORDER BY p.nombre ASC
+             {$excludeSql}
+             ORDER BY p.precio DESC, p.nombre ASC
              LIMIT :limit"
         );
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        foreach ($params as $key => $value) {
+            $stmt->bindValue(':' . $key, $value, PDO::PARAM_INT);
+        }
+        $stmt->bindValue(':limit', $remaining, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        return array_merge($featured, $stmt->fetchAll());
     }
 
     public function search(?int $categoryId = null, string $term = ''): array
@@ -78,6 +114,22 @@ class ProductModel
              FROM categorias
              WHERE activo = 1
              ORDER BY nombre ASC"
+        );
+
+        return $stmt->fetchAll();
+    }
+
+    public function getCategorySummary(): array
+    {
+        $stmt = $this->db->query(
+            "SELECT c.id, c.nombre, c.descripcion, COUNT(p.id) AS productos
+             FROM categorias c
+             LEFT JOIN productos p ON p.categoria_id = c.id AND p.activo = 1
+             WHERE c.activo = 1
+             GROUP BY c.id, c.nombre, c.descripcion
+             HAVING productos > 0
+             ORDER BY productos DESC, c.nombre ASC
+             LIMIT 6"
         );
 
         return $stmt->fetchAll();

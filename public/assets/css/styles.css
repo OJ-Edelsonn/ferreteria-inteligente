@@ -81,7 +81,9 @@ h1 {
 }
 
 .contact-highlight strong {
-    font-size: 2.3rem;
+    font-size: 1.55rem;
+    line-height: 1.15;
+    word-break: break-word;
 }
 
 .product-card {
@@ -114,6 +116,146 @@ h1 {
     margin-bottom: 1rem;
     object-fit: cover;
     width: 100%;
+}
+
+.quick-actions-section {
+    background: #fff;
+    border-bottom: 1px solid var(--fi-line);
+    padding: 1.25rem 0;
+}
+
+.quick-actions-grid {
+    display: grid;
+    gap: 0.9rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.quick-action {
+    border: 1px solid var(--fi-line);
+    border-radius: 8px;
+    color: var(--fi-ink);
+    display: block;
+    min-height: 118px;
+    padding: 1rem;
+    text-decoration: none;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.quick-action:hover {
+    border-color: rgba(192, 57, 43, 0.42);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    color: var(--fi-ink);
+    transform: translateY(-2px);
+}
+
+.quick-action strong,
+.quick-action span {
+    display: block;
+}
+
+.quick-action strong {
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+}
+
+.quick-action span {
+    color: var(--fi-muted);
+    font-size: 0.88rem;
+}
+
+.purchase-flow-section,
+.category-overview-section {
+    background: #fff;
+    padding: 4rem 0;
+}
+
+.purchase-flow-section {
+    border-bottom: 1px solid var(--fi-line);
+}
+
+.purchase-flow-grid,
+.category-overview-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.purchase-flow-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.purchase-flow-item {
+    border-left: 3px solid var(--fi-red);
+    padding: 0.2rem 1rem 0.2rem 1.15rem;
+}
+
+.purchase-flow-item span {
+    color: var(--fi-red);
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 800;
+    margin-bottom: 0.45rem;
+}
+
+.purchase-flow-item strong {
+    display: block;
+    font-size: 1.12rem;
+    margin-bottom: 0.35rem;
+}
+
+.purchase-flow-item p {
+    color: var(--fi-muted);
+    margin: 0;
+}
+
+.category-overview-section {
+    background: #f8fafc;
+    border-top: 1px solid var(--fi-line);
+    border-bottom: 1px solid var(--fi-line);
+}
+
+.category-overview-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.category-overview-card {
+    background: #fff;
+    border: 1px solid var(--fi-line);
+    border-radius: 8px;
+    color: var(--fi-ink);
+    min-height: 164px;
+    padding: 1.15rem;
+    text-decoration: none;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.category-overview-card:hover {
+    border-color: rgba(192, 57, 43, 0.42);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    color: var(--fi-ink);
+    transform: translateY(-2px);
+}
+
+.category-overview-card span,
+.category-overview-card strong,
+.category-overview-card p {
+    display: block;
+}
+
+.category-overview-card span {
+    color: var(--fi-red);
+    font-size: 0.82rem;
+    font-weight: 800;
+    margin-bottom: 0.55rem;
+}
+
+.category-overview-card strong {
+    font-size: 1.1rem;
+    margin-bottom: 0.35rem;
+}
+
+.category-overview-card p {
+    color: var(--fi-muted);
+    margin: 0;
 }
 
 .service-preview-section {
@@ -601,6 +743,44 @@ h1 {
     margin-bottom: 1rem;
 }
 
+.map-section {
+    background: #fff;
+    padding: 2rem 0 0;
+}
+
+.map-panel {
+    border: 1px solid var(--fi-line);
+    border-radius: 8px;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(260px, 0.42fr) minmax(0, 1fr);
+    overflow: hidden;
+}
+
+.map-copy {
+    align-self: center;
+    padding: 1.5rem;
+}
+
+.map-copy h2 {
+    font-size: clamp(1.45rem, 3vw, 2.35rem);
+    font-weight: 800;
+    letter-spacing: 0;
+    margin-bottom: 0.65rem;
+}
+
+.map-copy p:not(.eyebrow) {
+    color: var(--fi-muted);
+    margin: 0;
+}
+
+.map-frame {
+    border: 0;
+    display: block;
+    min-height: 340px;
+    width: 100%;
+}
+
 .contact-list {
     display: grid;
     gap: 1rem;
@@ -863,6 +1043,10 @@ h1 {
 
     .service-grid,
     .process-grid,
+    .quick-actions-grid,
+    .purchase-flow-grid,
+    .category-overview-grid,
+    .map-panel,
     .quote-layout {
         grid-template-columns: 1fr;
     }
@@ -896,6 +1080,11 @@ h1 {
     .metrics-grid,
     .two-columns {
         grid-template-columns: 1fr;
+    }
+
+    .quick-action,
+    .category-overview-card {
+        min-height: auto;
     }
 
     .quote-product {

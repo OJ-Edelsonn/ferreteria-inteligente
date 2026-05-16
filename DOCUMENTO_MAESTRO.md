@@ -94,10 +94,14 @@ Flujo general:
 
 Puede:
 
+- Ver la pagina de inicio con accesos rapidos, flujo de compra y categorias principales.
 - Ver el catalogo de productos.
 - Buscar productos.
 - Filtrar productos por categoria.
 - Ver detalles de un producto.
+- Armar una cotizacion preliminar.
+- Solicitar servicios de obra.
+- Revisar la ubicacion en el mapa de contacto.
 
 No necesita iniciar sesion.
 
@@ -146,6 +150,14 @@ Campos propuestos:
 - RF-04: El sistema debe mostrar detalle basico del producto.
 - RF-05: El sistema debe registrar cuando un producto es visto.
 - RF-06: El sistema debe registrar cada busqueda realizada.
+- RF-06.1: La pagina de inicio debe mostrar cemento y los 5 productos activos de mayor precio como destacados.
+- RF-06.2: La pagina de inicio debe mostrar accesos rapidos y categorias para orientar al cliente.
+
+### Contacto Y Servicios
+
+- RF-06.3: El sistema debe mostrar servicios de obra asociados a J&S Ferreteria.
+- RF-06.4: El sistema debe permitir preparar consultas por WhatsApp.
+- RF-06.5: La pagina de contacto debe mostrar la ubicacion en un mapa embebido.
 
 ### Administracion
 
@@ -332,6 +344,8 @@ Dominio inicial sugerido:
 - Base de datos local creada.
 - Tabla `interacciones` creada.
 - Home publica conectada a MySQL.
+- Inicio enriquecido con accesos rapidos, flujo de compra, categorias y destacados.
+- Destacados de inicio ajustados a cemento + 5 productos de mayor precio.
 - Catalogo publico creado.
 - Catalogo completo de la web anterior migrado: 87 productos activos con imagen.
 - Busqueda de productos creada.
@@ -348,7 +362,8 @@ Dominio inicial sugerido:
 - CRUD de productos implementado.
 - Vista de interacciones implementada.
 - Identidad real de J&S Ferretería integrada.
-- Pagina de contacto con WhatsApp implementada.
+- Pagina de contacto con WhatsApp y mapa embebido implementada.
+- Favicon de la web anterior implementado.
 - Graficos de interacciones agregados al dashboard.
 
 ### Siguiente Etapa
