@@ -36,7 +36,7 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                         </p>
                         <div class="d-flex flex-wrap gap-2 mt-4">
                             <a class="btn btn-danger" href="<?= e(BASE_URL) ?>/catalogo.php">Explorar catalogo</a>
-                            <a class="btn btn-outline-dark" href="<?= e(BASE_URL) ?>/contacto.php">Contactar por WhatsApp</a>
+                            <a class="btn btn-outline-dark" href="<?= e(BASE_URL) ?>/servicios.php">Servicios de obra</a>
                         </div>
                     </div>
                     <div class="col-lg-5">
@@ -72,6 +72,11 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                     <?php foreach ($productos as $producto): ?>
                         <div class="col-md-6 col-lg-4">
                             <article class="product-card">
+                                <?php if (!empty($producto['imagen'])): ?>
+                                    <img class="product-card-image" src="<?= e(BASE_URL) ?>/assets/img/productos/<?= e($producto['imagen']) ?>" alt="<?= e($producto['nombre']) ?>">
+                                <?php else: ?>
+                                    <div class="product-thumb"><?= e(strtoupper(substr($producto['nombre'], 0, 1))) ?></div>
+                                <?php endif; ?>
                                 <span class="badge text-bg-light"><?= e($producto['categoria']) ?></span>
                                 <h3><?= e($producto['nombre']) ?></h3>
                                 <p><?= e($producto['descripcion'] ?? 'Producto de ferreteria') ?></p>
@@ -83,6 +88,25 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                             </article>
                         </div>
                     <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-preview-section">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-7">
+                        <p class="eyebrow">Servicio local</p>
+                        <h2>Materiales y mano de obra en un solo lugar.</h2>
+                        <p>J&S Ferretería tambien conecta al cliente con servicio de maestro albañil para construccion, remodelacion, instalaciones sanitarias, electricidad y acabados.</p>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="service-action-card">
+                            <strong>Presupuesto de obra</strong>
+                            <span>El cliente puede solicitar una evaluacion por WhatsApp y acceder a precios especiales en materiales.</span>
+                            <a class="btn btn-danger mt-3" href="<?= e(BASE_URL) ?>/servicios.php">Ver servicios</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

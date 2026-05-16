@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <section class="login-card">
             <h2>Iniciar sesion</h2>
-            <p class="text-secondary">Credenciales locales iniciales: <code>admin@ferreteria.test</code> / <code>Admin12345</code>.</p>
+            <p class="text-secondary">Acceso privado para el administrador del sistema.</p>
 
             <?php if ($error !== ''): ?>
                 <div class="alert alert-danger py-2"><?= e($error) ?></div>

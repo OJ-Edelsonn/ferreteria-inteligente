@@ -41,14 +41,17 @@ ferreteria-inteligente/
 3. Iniciar Apache y MySQL.
 4. Crear una base de datos llamada `ferreteria_inteligente`.
 5. Importar `database/schema.sql` desde phpMyAdmin.
-6. Copiar `config/config.example.php` como `config/config.php`.
-7. Revisar credenciales locales en `config/config.php`.
-8. Abrir `http://localhost/ferreteria-inteligente/public/`.
+6. Importar `database/seed_catalog.sql` para cargar el catalogo completo.
+7. Copiar `config/config.example.php` como `config/config.php`.
+8. Revisar credenciales locales en `config/config.php`.
+9. Abrir `http://localhost/ferreteria-inteligente/public/`.
 
 ## URLs Locales
 
 - Inicio: `http://localhost/ferreteria-inteligente/public/`
 - Catalogo: `http://localhost/ferreteria-inteligente/public/catalogo.php`
+- Servicios: `http://localhost/ferreteria-inteligente/public/servicios.php`
+- Cotizador: `http://localhost/ferreteria-inteligente/public/cotizador.php`
 - Detalle de producto: `http://localhost/ferreteria-inteligente/public/producto.php?id=1`
 - Contacto: `http://localhost/ferreteria-inteligente/public/contacto.php`
 - Login admin: `http://localhost/ferreteria-inteligente/public/admin/login.php`
@@ -58,9 +61,12 @@ ferreteria-inteligente/
 
 - Home publica conectada a MySQL.
 - Catalogo de productos.
+- Catalogo completo migrado desde FerreSystem: 87 productos activos con imagen referencial.
 - Busqueda por nombre, descripcion o categoria.
 - Filtro por categoria.
 - Detalle de producto.
+- Cotizador de materiales con calculo de total estimado y envio por WhatsApp.
+- Seccion de servicios de obra para contactar al maestro albañil.
 - Registro de busquedas en `interacciones`.
 - Registro de vistas de producto en `interacciones`.
 - Pagina de contacto con WhatsApp.
@@ -69,6 +75,12 @@ ferreteria-inteligente/
 - CRUD de productos desde panel admin.
 - Dashboard con metricas y graficos.
 - Vista admin de interacciones capturadas.
+
+## Catalogo Migrado
+
+El archivo `database/seed_catalog.sql` contiene los productos activos de la web anterior. Las imagenes referenciales se encuentran en:
+
+`public/assets/img/productos/`
 
 ## Datos Del Negocio
 

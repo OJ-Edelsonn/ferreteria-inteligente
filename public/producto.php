@@ -55,9 +55,11 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                 <?php else: ?>
                     <div class="row g-4 align-items-start">
                         <div class="col-lg-5">
-                            <div class="product-detail-visual">
-                                <?= e(strtoupper(substr($producto['nombre'], 0, 1))) ?>
-                            </div>
+                            <?php if (!empty($producto['imagen'])): ?>
+                                <img class="product-detail-image" src="<?= e(BASE_URL) ?>/assets/img/productos/<?= e($producto['imagen']) ?>" alt="<?= e($producto['nombre']) ?>">
+                            <?php else: ?>
+                                <div class="product-detail-visual"><?= e(strtoupper(substr($producto['nombre'], 0, 1))) ?></div>
+                            <?php endif; ?>
                         </div>
                         <div class="col-lg-7">
                             <span class="badge text-bg-light mb-3"><?= e($producto['categoria']) ?></span>
@@ -77,6 +79,10 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
 
                             <div class="alert alert-info mt-4">
                                 Esta visita se registro como <strong>producto_visto</strong> en la tabla de interacciones.
+                            </div>
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <a class="btn btn-danger" href="<?= e(BASE_URL) ?>/cotizador.php?producto=<?= e($producto['id']) ?>">Agregar al cotizador</a>
+                                <a class="btn btn-outline-dark" href="<?= e(BASE_URL) ?>/contacto.php">Consultar disponibilidad</a>
                             </div>
                         </div>
                     </div>

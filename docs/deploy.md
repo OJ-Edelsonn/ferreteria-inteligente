@@ -10,9 +10,10 @@ InfinityFree para una demo gratuita de J&S Ferretería.
 2. Crear un sitio gratuito con subdominio.
 3. Crear una base de datos MySQL desde el panel.
 4. Importar `database/schema.sql` desde phpMyAdmin del hosting.
-5. Crear `config/config.php` con credenciales de produccion.
-6. Subir archivos por FileZilla al directorio publico del hosting.
-7. Probar URL final.
+5. Importar `database/seed_catalog.sql` para cargar los 87 productos e imagenes referenciales.
+6. Crear `config/config.php` con credenciales de produccion.
+7. Subir archivos por FileZilla al directorio publico del hosting.
+8. Probar URL final.
 
 ## Configuracion De Produccion
 

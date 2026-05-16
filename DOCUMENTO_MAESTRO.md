@@ -333,9 +333,12 @@ Dominio inicial sugerido:
 - Tabla `interacciones` creada.
 - Home publica conectada a MySQL.
 - Catalogo publico creado.
+- Catalogo completo de la web anterior migrado: 87 productos activos con imagen.
 - Busqueda de productos creada.
 - Filtro por categoria creado.
 - Detalle de producto creado.
+- Cotizador publico creado.
+- Servicios de obra mejorado.
 - Registro de busquedas implementado.
 - Registro de producto visto implementado.
 - Login de administrador implementado.

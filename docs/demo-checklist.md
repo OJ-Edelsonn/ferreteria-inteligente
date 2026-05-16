@@ -7,6 +7,8 @@
 - Busqueda: `http://localhost/ferreteria-inteligente/public/catalogo.php?buscar=cemento`
 - Detalle: `http://localhost/ferreteria-inteligente/public/producto.php?id=3`
 - Contacto: `http://localhost/ferreteria-inteligente/public/contacto.php`
+- Servicios: `http://localhost/ferreteria-inteligente/public/servicios.php`
+- Cotizador: `http://localhost/ferreteria-inteligente/public/cotizador.php`
 - Admin: `http://localhost/ferreteria-inteligente/public/admin/login.php`
 - Dashboard: `http://localhost/ferreteria-inteligente/public/admin/index.php`
 - Productos admin: `http://localhost/ferreteria-inteligente/public/admin/productos.php`
@@ -23,7 +25,9 @@
 7. Mostrar dashboard con metricas y graficos.
 8. Mostrar CRUD de productos.
 9. Mostrar tabla de interacciones.
-10. Mostrar contacto con WhatsApp.
+10. Mostrar servicios de obra.
+11. Mostrar cotizador de materiales.
+12. Mostrar contacto con WhatsApp.
 
 ## Credenciales Locales
 
@@ -40,4 +44,5 @@
 - `06_crud_productos.png`
 - `07_interacciones.png`
 - `08_contacto.png`
-
+- `09_servicios.png`
+- `10_cotizador.png`

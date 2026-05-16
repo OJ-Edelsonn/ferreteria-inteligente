@@ -111,9 +111,11 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                     <?php foreach ($productos as $producto): ?>
                         <div class="col-md-6 col-lg-4">
                             <article class="product-card catalog-card">
-                                <div class="product-thumb">
-                                    <?= e(strtoupper(substr($producto['nombre'], 0, 1))) ?>
-                                </div>
+                                <?php if (!empty($producto['imagen'])): ?>
+                                    <img class="product-card-image" src="<?= e(BASE_URL) ?>/assets/img/productos/<?= e($producto['imagen']) ?>" alt="<?= e($producto['nombre']) ?>">
+                                <?php else: ?>
+                                    <div class="product-thumb"><?= e(strtoupper(substr($producto['nombre'], 0, 1))) ?></div>
+                                <?php endif; ?>
                                 <span class="badge text-bg-light"><?= e($producto['categoria']) ?></span>
                                 <h3><?= e($producto['nombre']) ?></h3>
                                 <p><?= e($producto['descripcion'] ?? 'Producto de ferreteria') ?></p>
@@ -121,7 +123,10 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                                     <strong>S/ <?= e(number_format((float) $producto['precio'], 2)) ?></strong>
                                     <small>Stock: <?= e((int) $producto['stock']) ?></small>
                                 </div>
-                                <a class="btn btn-outline-dark w-100" href="<?= e(BASE_URL) ?>/producto.php?id=<?= e($producto['id']) ?>">Ver detalle</a>
+                                <div class="d-grid gap-2">
+                                    <a class="btn btn-outline-dark" href="<?= e(BASE_URL) ?>/producto.php?id=<?= e($producto['id']) ?>">Ver detalle</a>
+                                    <a class="btn btn-danger" href="<?= e(BASE_URL) ?>/cotizador.php?producto=<?= e($producto['id']) ?>">Agregar al cotizador</a>
+                                </div>
                             </article>
                         </div>
                     <?php endforeach; ?>

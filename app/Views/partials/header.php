@@ -27,9 +27,10 @@ $activePage = $activePage ?? '';
             <div class="collapse navbar-collapse" id="mainNav">
                 <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
                     <a class="nav-link <?= e(isActive($activePage, 'inicio')) ?>" href="<?= e(BASE_URL) ?>/index.php">Inicio</a>
-                    <a class="btn btn-sm <?= $activePage === 'catalogo' ? 'btn-dark' : 'btn-outline-dark' ?>" href="<?= e(BASE_URL) ?>/catalogo.php">Catalogo</a>
+                    <a class="nav-link <?= e(isActive($activePage, 'catalogo')) ?>" href="<?= e(BASE_URL) ?>/catalogo.php">Catalogo</a>
+                    <a class="nav-link <?= e(isActive($activePage, 'servicios')) ?>" href="<?= e(BASE_URL) ?>/servicios.php">Servicios</a>
+                    <a class="btn btn-sm <?= $activePage === 'cotizador' ? 'btn-dark' : 'btn-outline-dark' ?>" href="<?= e(BASE_URL) ?>/cotizador.php">Cotizador</a>
                     <a class="nav-link <?= e(isActive($activePage, 'contacto')) ?>" href="<?= e(BASE_URL) ?>/contacto.php">Contacto</a>
-                    <a class="btn btn-danger btn-sm" href="<?= e(BASE_URL) ?>/admin/login.php">Admin</a>
                 </div>
             </div>
         </div>
