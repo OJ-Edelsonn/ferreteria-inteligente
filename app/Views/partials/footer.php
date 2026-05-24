@@ -1,7 +1,8 @@
     <footer class="site-footer">
-        <div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
+        <div class="container d-flex flex-column flex-lg-row justify-content-between gap-2">
             <span><?= e(BUSINESS_NAME) ?> - <?= e(BUSINESS_LOCATION) ?></span>
-            <span>Catalogo web con captura de interacciones</span>
+            <span>Catálogo, cotizaciones y servicios para tu obra</span>
+            <span class="photo-credit">Imagen de portada: Nevado Huaguruncho. Fuente: <a href="https://miwayki.com/full-day-en-el-nevado-huaguruncho/" target="_blank" rel="noopener">Miwayki</a>.</span>
         </div>
     </footer>
 

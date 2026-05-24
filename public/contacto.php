@@ -26,7 +26,7 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
 
 ?>
     <main>
-        <section class="catalog-header">
+        <section class="catalog-header page-hero page-hero-contacto">
             <div class="container">
                 <p class="eyebrow"><?= e(BUSINESS_LOCATION) ?></p>
                 <div class="row g-4 align-items-end">
@@ -38,7 +38,7 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                         <div class="metric-panel contact-highlight">
                             <span>WhatsApp</span>
                             <strong>900 749 742</strong>
-                            <p>Atencion para clientes de <?= e(BUSINESS_DELIVERY_AREA) ?>.</p>
+                            <p>Atención para clientes de <?= e(BUSINESS_DELIVERY_AREA) ?>.</p>
                         </div>
                     </div>
                 </div>
@@ -49,13 +49,13 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
             <div class="container">
                 <div class="map-panel">
                     <div class="map-copy">
-                        <p class="eyebrow">Ubicacion exacta</p>
-                        <h2>Visitanos en Quiparacra - Pasco</h2>
-                        <p>Usa el mapa para ubicar la ferreteria antes de visitarnos o coordinar la entrega de materiales.</p>
+                        <p class="eyebrow">Ubicación exacta</p>
+                        <h2>Visítanos en Quiparacra - Pasco</h2>
+                        <p>Usa el mapa para ubicar la ferretería antes de visitarnos o coordinar la entrega de materiales.</p>
                     </div>
                     <iframe
                         class="map-frame"
-                        title="Mapa de J&S Ferreteria en Quiparacra"
+                        title="Mapa de J&S Ferretería en Quiparacra"
                         src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3901.234!2d-75.866949!3d-10.642924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTDCsDM4JzM0LjUiUyA3NcKwNTInMDEuMCJX!5e0!3m2!1ses!2spe!4v1234567890!5m2!1ses!2spe"
                         loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"
@@ -70,10 +70,10 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                 <div class="row g-4">
                     <div class="col-lg-5">
                         <div class="contact-panel">
-                            <h2>Datos de la ferreteria</h2>
+                            <h2>Datos de la ferretería</h2>
                             <div class="contact-list">
                                 <div>
-                                    <span>Direccion</span>
+                                    <span>Dirección</span>
                                     <strong><?= e(BUSINESS_ADDRESS) ?></strong>
                                 </div>
                                 <div>
@@ -93,7 +93,7 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
 
                     <div class="col-lg-7">
                         <div class="contact-panel">
-                            <h2>Enviar consulta rapida</h2>
+                            <h2>Enviar consulta rápida</h2>
 
                             <?php if ($error !== ''): ?>
                                 <div class="alert alert-danger"><?= e($error) ?></div>

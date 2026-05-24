@@ -46,7 +46,7 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
                 <strong><?= e($metrics['stock_bajo']) ?></strong>
             </article>
             <article class="admin-card metric-card">
-                <span>Busquedas</span>
+                <span>Búsquedas</span>
                 <strong><?= e($metrics['busquedas']) ?></strong>
             </article>
             <article class="admin-card metric-card">
@@ -59,10 +59,10 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
             <article class="admin-card chart-card">
                 <div class="section-heading">
                     <h2>Actividad reciente</h2>
-                    <span>Ultimos 14 dias</span>
+                    <span>Últimos 14 días</span>
                 </div>
                 <?php if (empty($dailyLabels)): ?>
-                    <p class="text-secondary mb-0">Aun no hay datos suficientes para graficar.</p>
+                    <p class="text-secondary mb-0">Aún no hay datos suficientes para graficar.</p>
                 <?php else: ?>
                     <canvas id="activityChart" height="180"></canvas>
                 <?php endif; ?>
@@ -70,11 +70,11 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
 
             <article class="admin-card chart-card">
                 <div class="section-heading">
-                    <h2>Tipos de interaccion</h2>
-                    <span>Distribucion</span>
+                    <h2>Tipos de interacción</h2>
+                    <span>Distribución</span>
                 </div>
                 <?php if (empty($typeLabels)): ?>
-                    <p class="text-secondary mb-0">Aun no hay interacciones registradas.</p>
+                    <p class="text-secondary mb-0">Aún no hay interacciones registradas.</p>
                 <?php else: ?>
                     <canvas id="typeChart" height="180"></canvas>
                 <?php endif; ?>
@@ -84,11 +84,11 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
         <section class="admin-grid two-columns mt-4">
             <article class="admin-card">
                 <div class="section-heading">
-                    <h2>Busquedas frecuentes</h2>
+                    <h2>Búsquedas frecuentes</h2>
                     <a href="<?= e(BASE_URL) ?>/admin/interacciones.php">Ver todo</a>
                 </div>
                 <?php if (empty($topSearches)): ?>
-                    <p class="text-secondary mb-0">Aun no hay busquedas registradas.</p>
+                    <p class="text-secondary mb-0">Aún no hay búsquedas registradas.</p>
                 <?php else: ?>
                     <div class="admin-list">
                         <?php foreach ($topSearches as $row): ?>
@@ -103,11 +103,11 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
 
             <article class="admin-card">
                 <div class="section-heading">
-                    <h2>Productos mas vistos</h2>
+                    <h2>Productos más vistos</h2>
                     <a href="<?= e(BASE_URL) ?>/admin/interacciones.php">Ver todo</a>
                 </div>
                 <?php if (empty($topProducts)): ?>
-                    <p class="text-secondary mb-0">Aun no hay vistas registradas.</p>
+                    <p class="text-secondary mb-0">Aún no hay vistas registradas.</p>
                 <?php else: ?>
                     <div class="admin-list">
                         <?php foreach ($topProducts as $row): ?>
@@ -123,11 +123,11 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
 
         <section class="admin-card mt-4">
             <div class="section-heading">
-                <h2>Busquedas sin resultados</h2>
-                <span>Oportunidades para mejorar catalogo</span>
+                <h2>Búsquedas sin resultados</h2>
+                <span>Oportunidades para mejorar el catálogo</span>
             </div>
             <?php if (empty($withoutResults)): ?>
-                <p class="text-secondary mb-0">Por ahora no hay busquedas sin resultados.</p>
+                <p class="text-secondary mb-0">Por ahora no hay búsquedas sin resultados.</p>
             <?php else: ?>
                 <div class="admin-list">
                     <?php foreach ($withoutResults as $row): ?>

@@ -39,7 +39,7 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
     <main>
         <section class="py-5">
             <div class="container">
-                <a class="btn btn-sm btn-outline-secondary mb-4" href="<?= e(BASE_URL) ?>/catalogo.php">Volver al catalogo</a>
+                <a class="btn btn-sm btn-outline-secondary mb-4" href="<?= e(BASE_URL) ?>/catalogo.php">Volver al catálogo</a>
 
                 <?php if (!$dbOk): ?>
                     <div class="alert alert-warning">
@@ -50,7 +50,7 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                 <?php elseif ($producto === null): ?>
                     <div class="empty-state">
                         <strong>Producto no encontrado.</strong>
-                        <span>Puede que el producto no exista o este desactivado.</span>
+                        <span>Puede que el producto no exista o esté desactivado.</span>
                     </div>
                 <?php else: ?>
                     <div class="row g-4 align-items-start">
@@ -64,7 +64,7 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                         <div class="col-lg-7">
                             <span class="badge text-bg-light mb-3"><?= e($producto['categoria']) ?></span>
                             <h1 class="detail-title"><?= e($producto['nombre']) ?></h1>
-                            <p class="detail-description"><?= e($producto['descripcion'] ?? 'Producto de ferreteria') ?></p>
+                            <p class="detail-description"><?= e($producto['descripcion'] ?? 'Producto de ferretería') ?></p>
 
                             <div class="detail-panel">
                                 <div>
@@ -78,7 +78,7 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                             </div>
 
                             <div class="alert alert-info mt-4">
-                                Esta visita se registro como <strong>producto_visto</strong> en la tabla de interacciones.
+                                Esta visita se registró como <strong>producto_visto</strong> en la tabla de interacciones.
                             </div>
                             <div class="d-flex flex-wrap gap-2 mt-3">
                                 <a class="btn btn-danger" href="<?= e(BASE_URL) ?>/cotizador.php?producto=<?= e($producto['id']) ?>">Agregar al cotizador</a>

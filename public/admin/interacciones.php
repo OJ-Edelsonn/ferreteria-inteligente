@@ -32,7 +32,7 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
                 <strong><?= e($metrics['total']) ?></strong>
             </article>
             <article class="admin-card metric-card">
-                <span>Busquedas</span>
+                <span>Búsquedas</span>
                 <strong><?= e($metrics['busquedas']) ?></strong>
             </article>
             <article class="admin-card metric-card">
@@ -47,9 +47,9 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
 
         <section class="admin-grid two-columns mt-4">
             <article class="admin-card">
-                <h2>Top busquedas</h2>
+                <h2>Top búsquedas</h2>
                 <?php if (empty($topSearches)): ?>
-                    <p class="text-secondary mb-0">Aun no hay busquedas.</p>
+                    <p class="text-secondary mb-0">Aún no hay búsquedas.</p>
                 <?php else: ?>
                     <div class="admin-list">
                         <?php foreach ($topSearches as $row): ?>
@@ -65,7 +65,7 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
             <article class="admin-card">
                 <h2>Top productos vistos</h2>
                 <?php if (empty($topProducts)): ?>
-                    <p class="text-secondary mb-0">Aun no hay productos vistos.</p>
+                    <p class="text-secondary mb-0">Aún no hay productos vistos.</p>
                 <?php else: ?>
                     <div class="admin-list">
                         <?php foreach ($topProducts as $row): ?>
@@ -82,7 +82,7 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
         <section class="admin-card mt-4">
             <div class="section-heading">
                 <h2>Actividad reciente</h2>
-                <span>Ultimas <?= e(count($recent)) ?></span>
+                <span>Últimas <?= e(count($recent)) ?></span>
             </div>
 
             <div class="table-responsive">

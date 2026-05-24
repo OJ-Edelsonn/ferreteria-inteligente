@@ -34,7 +34,7 @@ $admin = currentAdmin();
         </nav>
         <div class="admin-user">
             <span><?= e($admin['nombre'] ?? 'Administrador') ?></span>
-            <a href="<?= e(BASE_URL) ?>/admin/logout.php">Cerrar sesion</a>
+            <a href="<?= e(BASE_URL) ?>/admin/logout.php">Cerrar sesión</a>
         </div>
     </aside>
     <div class="admin-main">

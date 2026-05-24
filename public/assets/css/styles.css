@@ -22,9 +22,63 @@ body {
 }
 
 .hero-section {
-    background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
-    border-bottom: 1px solid var(--fi-line);
-    padding: 5rem 0 4rem;
+    background:
+        linear-gradient(180deg, rgba(8, 14, 24, 0.78) 0%, rgba(8, 14, 24, 0.52) 52%, rgba(255, 255, 255, 0.96) 100%),
+        url("../img/hero-inicio.webp") center 38% / cover no-repeat;
+    border-bottom: 0;
+    overflow: hidden;
+    padding: 6rem 0 6.5rem;
+    position: relative;
+}
+
+.hero-section::after {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 80%);
+    bottom: 0;
+    content: "";
+    height: 150px;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    z-index: 0;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-section h1,
+.hero-section .lead {
+    color: #fff;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
+}
+
+.hero-section .eyebrow {
+    color: rgba(255, 255, 255, 0.86);
+}
+
+.hero-section .btn-outline-dark {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.78);
+    color: #fff;
+}
+
+.hero-section .btn-outline-dark:hover {
+    background: #fff;
+    border-color: #fff;
+    color: var(--fi-ink);
+}
+
+.hero-section .metric-panel {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.68);
+    color: var(--fi-ink);
+}
+
+.hero-section .metric-panel span,
+.hero-section .metric-panel p {
+    color: #475569;
 }
 
 .eyebrow {
@@ -550,28 +604,28 @@ h1 {
     width: 100%;
 }
 
-.data-section {
+.guidance-section {
     background: var(--fi-ink);
     color: #fff;
     padding: 4rem 0;
 }
 
-.data-section .eyebrow {
+.guidance-section .eyebrow {
     color: #fca5a5;
 }
 
-.data-section h2 {
+.guidance-section h2 {
     font-size: clamp(1.8rem, 3vw, 3rem);
     font-weight: 800;
     letter-spacing: 0;
 }
 
-.data-copy {
+.guidance-copy {
     color: rgba(255, 255, 255, 0.72);
     margin: 1rem 0 0;
 }
 
-.data-tile {
+.guidance-tile {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
@@ -579,17 +633,17 @@ h1 {
     padding: 1.25rem;
 }
 
-.data-tile strong,
-.data-tile span {
+.guidance-tile strong,
+.guidance-tile span {
     display: block;
 }
 
-.data-tile strong {
+.guidance-tile strong {
     font-size: 1.05rem;
     margin-bottom: 0.4rem;
 }
 
-.data-tile span {
+.guidance-tile span {
     color: rgba(255, 255, 255, 0.7);
 }
 
@@ -601,6 +655,74 @@ h1 {
 
 .catalog-header h1 {
     font-size: clamp(2rem, 4vw, 3.75rem);
+}
+
+.page-hero {
+    background:
+        linear-gradient(90deg, rgba(15, 23, 42, 0.78) 0%, rgba(15, 23, 42, 0.58) 44%, rgba(15, 23, 42, 0.2) 100%),
+        var(--page-hero-image) var(--page-hero-position, center) / cover no-repeat;
+    border-bottom: 0;
+    color: #fff;
+    overflow: hidden;
+    padding: 4.25rem 0 3.25rem;
+    position: relative;
+}
+
+.page-hero::after {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(248, 250, 252, 0.28) 100%);
+    bottom: 0;
+    content: "";
+    height: 90px;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+}
+
+.page-hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+.page-hero .eyebrow,
+.page-hero .lead {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.page-hero h1 {
+    color: #fff;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+}
+
+.page-hero .search-box,
+.page-hero .metric-panel {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.62);
+    color: var(--fi-ink);
+}
+
+.page-hero .metric-panel {
+    color: var(--fi-ink);
+}
+
+.page-hero .metric-panel span,
+.page-hero .metric-panel p {
+    color: #475569;
+}
+
+.page-hero-catalogo {
+    --page-hero-image: url("../img/hero-catalogo.webp");
+    --page-hero-position: center 54%;
+}
+
+.page-hero-cotizador {
+    --page-hero-image: url("../img/hero-cotizador.webp");
+    --page-hero-position: center 58%;
+}
+
+.page-hero-contacto {
+    --page-hero-image: url("../img/hero-contacto.webp");
+    --page-hero-position: center 48%;
 }
 
 .search-box {
@@ -726,6 +848,16 @@ h1 {
     color: rgba(255, 255, 255, 0.72);
     font-size: 0.9rem;
     padding: 1.25rem 0;
+}
+
+.site-footer a {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+}
+
+.photo-credit {
+    max-width: 420px;
 }
 
 .contact-panel {

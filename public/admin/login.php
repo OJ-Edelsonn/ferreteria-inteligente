@@ -20,9 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = (string) ($_POST['password'] ?? '');
 
     if (!validateCsrf($_POST['csrf_token'] ?? null)) {
-        $error = 'La sesion expiro. Intenta nuevamente.';
+        $error = 'La sesión expiró. Intenta nuevamente.';
     } elseif ($email === '' || $password === '') {
-        $error = 'Ingresa correo y contrasena.';
+        $error = 'Ingresa correo y contraseña.';
     } else {
         $userModel = new AdminUserModel(getConnection());
         $admin = $userModel->authenticate($email, $password);
@@ -53,11 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <section class="login-info">
             <p class="eyebrow">Panel privado</p>
             <h1>Gestiona <?= e(BUSINESS_NAME) ?> y convierte visitas en datos.</h1>
-            <p>Desde aqui se administrara el catalogo de <?= e(BUSINESS_LOCATION) ?> y se revisaran las interacciones capturadas por el sitio.</p>
+            <p>Desde aquí se administrará el catálogo de <?= e(BUSINESS_LOCATION) ?> y se revisarán las interacciones capturadas por el sitio.</p>
         </section>
 
         <section class="login-card">
-            <h2>Iniciar sesion</h2>
+            <h2>Iniciar sesión</h2>
             <p class="text-secondary">Acceso privado para el administrador del sistema.</p>
 
             <?php if ($error !== ''): ?>
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div>
-                    <label class="form-label" for="password">Contrasena</label>
+                    <label class="form-label" for="password">Contraseña</label>
                     <input class="form-control" id="password" name="password" type="password" required>
                 </div>
 

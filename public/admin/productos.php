@@ -33,7 +33,7 @@ function validateProductData(array $data): array
     $errors = [];
 
     if (!ctype_digit((string) $data['categoria_id'])) {
-        $errors[] = 'Selecciona una categoria valida.';
+        $errors[] = 'Selecciona una categoría válida.';
     }
 
     if ($data['nombre'] === '') {
@@ -41,11 +41,11 @@ function validateProductData(array $data): array
     }
 
     if (!is_numeric($data['precio']) || (float) $data['precio'] < 0) {
-        $errors[] = 'El precio debe ser un numero mayor o igual a cero.';
+        $errors[] = 'El precio debe ser un número mayor o igual a cero.';
     }
 
     if (!ctype_digit((string) $data['stock'])) {
-        $errors[] = 'El stock debe ser un numero entero mayor o igual a cero.';
+        $errors[] = 'El stock debe ser un número entero mayor o igual a cero.';
     }
 
     return $errors;
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = (string) ($_POST['action'] ?? '');
 
     if (!validateCsrf($_POST['csrf_token'] ?? null)) {
-        $error = 'La sesion expiro. Intenta nuevamente.';
+        $error = 'La sesión expiró. Intenta nuevamente.';
     } elseif ($action === 'create' || $action === 'update') {
         $data = productFormData();
         $errors = validateProductData($data);
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $productId = ctype_digit((string) ($_POST['producto_id'] ?? '')) ? (int) $_POST['producto_id'] : 0;
 
             if ($productId <= 0) {
-                $error = 'Producto invalido.';
+                $error = 'Producto inválido.';
             } else {
                 $productModel->update($productId, $data);
                 $message = 'Producto actualizado correctamente.';
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $productId = ctype_digit((string) ($_POST['producto_id'] ?? '')) ? (int) $_POST['producto_id'] : 0;
 
         if ($productId <= 0) {
-            $error = 'Producto invalido.';
+            $error = 'Producto inválido.';
         } else {
             $productModel->deactivate($productId);
             $message = 'Producto desactivado correctamente.';
@@ -137,7 +137,7 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
                     </div>
 
                     <div>
-                        <label class="form-label" for="categoria_id">Categoria</label>
+                        <label class="form-label" for="categoria_id">Categoría</label>
                         <select class="form-select" id="categoria_id" name="categoria_id" required>
                             <option value="">Seleccionar...</option>
                             <?php foreach ($categories as $category): ?>
@@ -149,7 +149,7 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
                     </div>
 
                     <div>
-                        <label class="form-label" for="descripcion">Descripcion</label>
+                        <label class="form-label" for="descripcion">Descripción</label>
                         <textarea class="form-control" id="descripcion" name="descripcion" rows="3"><?= e($formProduct['descripcion']) ?></textarea>
                     </div>
 
@@ -179,14 +179,14 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
             </article>
 
             <article class="admin-card">
-                <h2>Filtrar catalogo</h2>
+                <h2>Filtrar catálogo</h2>
                 <form method="get" class="vstack gap-3">
                     <div>
                         <label class="form-label" for="buscar">Buscar</label>
-                        <input class="form-control" id="buscar" name="buscar" value="<?= e($searchTerm) ?>" placeholder="Nombre, descripcion o categoria">
+                        <input class="form-control" id="buscar" name="buscar" value="<?= e($searchTerm) ?>" placeholder="Nombre, descripción o categoría">
                     </div>
                     <div>
-                        <label class="form-label" for="categoria">Categoria</label>
+                        <label class="form-label" for="categoria">Categoría</label>
                         <select class="form-select" id="categoria" name="categoria">
                             <option value="">Todas</option>
                             <?php foreach ($categories as $category): ?>
@@ -215,7 +215,7 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
                     <thead>
                         <tr>
                             <th>Producto</th>
-                            <th>Categoria</th>
+                            <th>Categoría</th>
                             <th>Precio</th>
                             <th>Stock</th>
                             <th class="text-end">Acciones</th>
@@ -234,7 +234,7 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
                                 <td class="text-end">
                                     <div class="d-inline-flex gap-2">
                                         <a class="btn btn-sm btn-outline-dark" href="<?= e(BASE_URL) ?>/admin/productos.php?editar=<?= e($product['id']) ?>">Editar</a>
-                                        <form method="post" onsubmit="return confirm('Desactivar este producto?')">
+                                        <form method="post" onsubmit="return confirm('¿Desactivar este producto?')">
                                             <input type="hidden" name="csrf_token" value="<?= e(csrfToken()) ?>">
                                             <input type="hidden" name="action" value="delete">
                                             <input type="hidden" name="producto_id" value="<?= e($product['id']) ?>">

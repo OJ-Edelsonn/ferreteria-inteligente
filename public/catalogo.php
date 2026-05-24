@@ -32,19 +32,19 @@ try {
     $error = $exception->getMessage();
 }
 
-$pageTitle = 'Catalogo - ' . BUSINESS_NAME;
+$pageTitle = 'Catálogo - ' . BUSINESS_NAME;
 $activePage = 'catalogo';
 require_once __DIR__ . '/../app/Views/partials/header.php';
 
 ?>
     <main>
-        <section class="catalog-header">
+        <section class="catalog-header page-hero page-hero-catalogo">
             <div class="container">
                 <p class="eyebrow"><?= e(BUSINESS_NAME) ?> - <?= e(BUSINESS_LOCATION) ?></p>
                 <div class="row g-3 align-items-end">
                     <div class="col-lg-7">
                         <h1>Productos disponibles</h1>
-                        <p class="lead mb-0">Busca productos y convierte cada consulta en datos utiles para mejorar el catalogo de la ferreteria.</p>
+                        <p class="lead mb-0">Busca materiales, herramientas y accesorios por categoría o nombre antes de coordinar tu compra.</p>
                     </div>
                     <div class="col-lg-5">
                         <form class="search-box" method="get" action="catalogo.php">
@@ -103,7 +103,7 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                 <?php if ($dbOk && empty($productos)): ?>
                     <div class="empty-state">
                         <strong>No encontramos productos con ese criterio.</strong>
-                        <span>Este dato tambien es valioso: ayuda a saber que busca el cliente y que podria faltar en catalogo.</span>
+                        <span>Prueba con otra palabra o contáctanos por WhatsApp para consultar disponibilidad.</span>
                     </div>
                 <?php endif; ?>
 
@@ -118,7 +118,7 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                                 <?php endif; ?>
                                 <span class="badge text-bg-light"><?= e($producto['categoria']) ?></span>
                                 <h3><?= e($producto['nombre']) ?></h3>
-                                <p><?= e($producto['descripcion'] ?? 'Producto de ferreteria') ?></p>
+                                <p><?= e($producto['descripcion'] ?? 'Producto de ferretería') ?></p>
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <strong>S/ <?= e(number_format((float) $producto['precio'], 2)) ?></strong>
                                     <small>Stock: <?= e((int) $producto['stock']) ?></small>

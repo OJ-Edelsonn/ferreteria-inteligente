@@ -23,17 +23,17 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
 
 ?>
     <main>
-        <section class="catalog-header">
+        <section class="catalog-header page-hero page-hero-cotizador">
             <div class="container">
                 <p class="eyebrow">Cotizador de materiales</p>
                 <div class="row g-4 align-items-end">
                     <div class="col-lg-7">
-                        <h1>Arma una cotizacion antes de comprar.</h1>
-                        <p class="lead mb-0">Selecciona productos, calcula un total estimado y envia el pedido por WhatsApp para confirmar disponibilidad.</p>
+                        <h1>Arma una cotización antes de comprar.</h1>
+                        <p class="lead mb-0">Selecciona productos, calcula un total estimado y envía el pedido por WhatsApp para confirmar disponibilidad.</p>
                     </div>
                     <div class="col-lg-5">
                         <div class="metric-panel">
-                            <span>Catalogo disponible</span>
+                            <span>Catálogo disponible</span>
                             <strong><?= e(count($products)) ?></strong>
                             <p>Productos activos listos para cotizar.</p>
                         </div>
@@ -52,7 +52,7 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                                 <input class="form-control" id="quoteSearch" type="search" placeholder="Cemento, foco, tubo PVC...">
                             </div>
                             <div>
-                                <label class="form-label" for="quoteCategory">Categoria</label>
+                                <label class="form-label" for="quoteCategory">Categoría</label>
                                 <select class="form-select" id="quoteCategory">
                                     <option value="">Todas</option>
                                     <?php foreach ($categories as $category): ?>
@@ -79,7 +79,7 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
                     </section>
 
                     <aside class="quote-summary">
-                        <h2>Tu cotizacion</h2>
+                        <h2>Tu cotización</h2>
                         <div id="quoteItems" class="quote-items">
                             <p class="text-secondary mb-0">Agrega productos para calcular un total estimado.</p>
                         </div>
@@ -115,4 +115,3 @@ require_once __DIR__ . '/../app/Views/partials/header.php';
         window.preselectedProduct = <?= isset($_GET['producto']) && ctype_digit((string) $_GET['producto']) ? (int) $_GET['producto'] : 'null' ?>;
     </script>
 <?php require_once __DIR__ . '/../app/Views/partials/footer.php'; ?>
-

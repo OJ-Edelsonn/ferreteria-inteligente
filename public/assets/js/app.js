@@ -119,7 +119,7 @@ document.querySelectorAll('input[type="search"]').forEach((input) => {
 
         const items = Array.from(cart.values());
         if (items.length === 0) {
-            alert('Agrega al menos un producto para enviar la cotizacion.');
+            alert('Agrega al menos un producto para enviar la cotización.');
             return;
         }
 
