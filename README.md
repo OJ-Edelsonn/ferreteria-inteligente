@@ -76,6 +76,7 @@ ferreteria-inteligente/
 - Login de administrador con sesión.
 - Protección de rutas privadas.
 - CRUD de productos desde panel admin.
+- Gestión rápida de stock con filtro de productos bajos y ordenamiento del catálogo.
 - Dashboard con métricas y gráficos.
 - Panel admin con alertas de stock bajo, demanda por categoría e inventario estimado.
 - Vista admin de interacciones capturadas.

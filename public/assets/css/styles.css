@@ -1194,6 +1194,54 @@ h1 {
     max-width: 520px;
 }
 
+.admin-filter-check {
+    align-items: center;
+    border: 1px solid var(--fi-line);
+    border-radius: 8px;
+    display: flex;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0.7rem 0.8rem;
+}
+
+.admin-category-pill,
+.stock-badge {
+    border-radius: 999px;
+    display: inline-flex;
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1;
+    padding: 0.42rem 0.58rem;
+    white-space: nowrap;
+}
+
+.admin-category-pill {
+    background: #eef3f8;
+    color: #243145;
+}
+
+.stock-badge.is-ok {
+    background: #e9f7ef;
+    color: #1e7e43;
+}
+
+.stock-badge.is-low {
+    background: #fff1e8;
+    color: #b64612;
+}
+
+.quick-stock-form {
+    align-items: center;
+    display: grid;
+    gap: 0.45rem;
+    grid-template-columns: auto 76px auto;
+    min-width: 230px;
+}
+
+.quick-stock-form .form-control {
+    min-width: 0;
+}
+
 .admin-action-list {
     display: grid;
     gap: 0.75rem;
@@ -1346,6 +1394,11 @@ h1 {
 
     .admin-action-row {
         grid-template-columns: 1fr;
+    }
+
+    .quick-stock-form {
+        grid-template-columns: 1fr;
+        min-width: 0;
     }
 
     .bar-label {

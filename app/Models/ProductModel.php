@@ -92,6 +92,55 @@ class ProductModel
         return $stmt->fetchAll();
     }
 
+    public function searchForAdmin(
+        ?int $categoryId = null,
+        string $term = '',
+        bool $lowStockOnly = false,
+        string $orderBy = 'nombre',
+        int $stockThreshold = 10
+    ): array {
+        $sql = "SELECT p.id, p.nombre, p.descripcion, p.precio, p.stock, p.imagen, c.nombre AS categoria
+                FROM productos p
+                INNER JOIN categorias c ON c.id = p.categoria_id
+                WHERE p.activo = 1";
+        $params = [];
+
+        if ($categoryId !== null) {
+            $sql .= " AND p.categoria_id = :category_id";
+            $params['category_id'] = $categoryId;
+        }
+
+        if ($term !== '') {
+            $sql .= " AND (
+                p.nombre LIKE :term_name
+                OR p.descripcion LIKE :term_description
+                OR c.nombre LIKE :term_category
+            )";
+            $params['term_name'] = '%' . $term . '%';
+            $params['term_description'] = '%' . $term . '%';
+            $params['term_category'] = '%' . $term . '%';
+        }
+
+        if ($lowStockOnly) {
+            $sql .= " AND p.stock <= :stock_threshold";
+            $params['stock_threshold'] = $stockThreshold;
+        }
+
+        $orderOptions = [
+            'nombre' => 'p.nombre ASC',
+            'stock_asc' => 'p.stock ASC, p.nombre ASC',
+            'stock_desc' => 'p.stock DESC, p.nombre ASC',
+            'precio_desc' => 'p.precio DESC, p.nombre ASC',
+            'precio_asc' => 'p.precio ASC, p.nombre ASC',
+        ];
+        $sql .= ' ORDER BY ' . ($orderOptions[$orderBy] ?? $orderOptions['nombre']);
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute($params);
+
+        return $stmt->fetchAll();
+    }
+
     public function find(int $id): ?array
     {
         $stmt = $this->db->prepare(
@@ -223,6 +272,20 @@ class ProductModel
         );
 
         return $stmt->execute($params);
+    }
+
+    public function updateStock(int $id, int $stock): bool
+    {
+        $stmt = $this->db->prepare(
+            "UPDATE productos
+             SET stock = :stock
+             WHERE id = :id AND activo = 1"
+        );
+
+        return $stmt->execute([
+            'id' => $id,
+            'stock' => $stock,
+        ]);
     }
 
     public function deactivate(int $id): bool

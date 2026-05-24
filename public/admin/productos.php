@@ -15,6 +15,14 @@ $productModel = new ProductModel($conn);
 $message = '';
 $error = '';
 $editingProduct = null;
+$stockThreshold = 10;
+$orderOptions = [
+    'nombre' => 'Nombre A-Z',
+    'stock_asc' => 'Menor stock',
+    'stock_desc' => 'Mayor stock',
+    'precio_desc' => 'Mayor precio',
+    'precio_asc' => 'Menor precio',
+];
 
 function productFormData(): array
 {
@@ -75,6 +83,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $message = 'Producto actualizado correctamente.';
             }
         }
+    } elseif ($action === 'update_stock') {
+        $productId = ctype_digit((string) ($_POST['producto_id'] ?? '')) ? (int) $_POST['producto_id'] : 0;
+        $stock = $_POST['stock'] ?? '';
+
+        if ($productId <= 0) {
+            $error = 'Producto inválido.';
+        } elseif (!ctype_digit((string) $stock)) {
+            $error = 'Ingresa un stock válido.';
+        } else {
+            $productModel->updateStock($productId, (int) $stock);
+            $message = 'Stock actualizado correctamente.';
+        }
     } elseif ($action === 'delete') {
         $productId = ctype_digit((string) ($_POST['producto_id'] ?? '')) ? (int) $_POST['producto_id'] : 0;
 
@@ -95,8 +115,13 @@ $categoryId = isset($_GET['categoria']) && ctype_digit((string) $_GET['categoria
     ? (int) $_GET['categoria']
     : null;
 $searchTerm = trim((string) ($_GET['buscar'] ?? ''));
+$lowStockOnly = ($_GET['stock_bajo'] ?? '') === '1';
+$orderBy = (string) ($_GET['orden'] ?? 'nombre');
+if (!array_key_exists($orderBy, $orderOptions)) {
+    $orderBy = 'nombre';
+}
 $categories = $productModel->getCategories();
-$products = $productModel->search($categoryId, $searchTerm);
+$products = $productModel->searchForAdmin($categoryId, $searchTerm, $lowStockOnly, $orderBy, $stockThreshold);
 
 $formProduct = [
     'id' => $editingProduct['id'] ?? '',
@@ -196,6 +221,20 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
                             <?php endforeach; ?>
                         </select>
                     </div>
+                    <div>
+                        <label class="form-label" for="orden">Ordenar por</label>
+                        <select class="form-select" id="orden" name="orden">
+                            <?php foreach ($orderOptions as $value => $label): ?>
+                                <option value="<?= e($value) ?>" <?= $orderBy === $value ? 'selected' : '' ?>>
+                                    <?= e($label) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <label class="form-check admin-filter-check" for="stock_bajo">
+                        <input class="form-check-input" id="stock_bajo" name="stock_bajo" type="checkbox" value="1" <?= $lowStockOnly ? 'checked' : '' ?>>
+                        <span class="form-check-label">Mostrar solo stock bajo (<?= e($stockThreshold) ?> o menos)</span>
+                    </label>
                     <div class="d-flex gap-2">
                         <button class="btn btn-dark" type="submit">Filtrar</button>
                         <a class="btn btn-outline-secondary" href="<?= e(BASE_URL) ?>/admin/productos.php">Limpiar</a>
@@ -228,9 +267,20 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
                                     <strong><?= e($product['nombre']) ?></strong>
                                     <small><?= e($product['descripcion'] ?? '') ?></small>
                                 </td>
-                                <td><?= e($product['categoria']) ?></td>
+                                <td><span class="admin-category-pill"><?= e($product['categoria']) ?></span></td>
                                 <td>S/ <?= e(number_format((float) $product['precio'], 2)) ?></td>
-                                <td><?= e((int) $product['stock']) ?></td>
+                                <td>
+                                    <form class="quick-stock-form" method="post">
+                                        <input type="hidden" name="csrf_token" value="<?= e(csrfToken()) ?>">
+                                        <input type="hidden" name="action" value="update_stock">
+                                        <input type="hidden" name="producto_id" value="<?= e($product['id']) ?>">
+                                        <span class="stock-badge <?= (int) $product['stock'] <= $stockThreshold ? 'is-low' : 'is-ok' ?>">
+                                            <?= (int) $product['stock'] <= $stockThreshold ? 'Bajo' : 'OK' ?>
+                                        </span>
+                                        <input class="form-control form-control-sm" name="stock" type="number" min="0" step="1" value="<?= e((int) $product['stock']) ?>" aria-label="Stock de <?= e($product['nombre']) ?>">
+                                        <button class="btn btn-sm btn-outline-dark" type="submit">Guardar</button>
+                                    </form>
+                                </td>
                                 <td class="text-end">
                                     <div class="d-inline-flex gap-2">
                                         <a class="btn btn-sm btn-outline-dark" href="<?= e(BASE_URL) ?>/admin/productos.php?editar=<?= e($product['id']) ?>">Editar</a>
