@@ -1204,8 +1204,27 @@ h1 {
     padding: 0.7rem 0.8rem;
 }
 
+.admin-filter-bar {
+    align-items: end;
+    background: #f8fafc;
+    border: 1px solid var(--fi-line);
+    border-radius: 8px;
+    display: grid;
+    gap: 0.85rem;
+    grid-template-columns: 180px 190px minmax(220px, 1fr) auto;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+
+.admin-filter-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
 .admin-category-pill,
-.stock-badge {
+.stock-badge,
+.interaction-badge,
+.result-badge {
     border-radius: 999px;
     display: inline-flex;
     font-size: 0.78rem;
@@ -1228,6 +1247,35 @@ h1 {
 .stock-badge.is-low {
     background: #fff1e8;
     color: #b64612;
+}
+
+.interaction-badge.is-search {
+    background: #eef3f8;
+    color: #185fa5;
+}
+
+.interaction-badge.is-view {
+    background: #f8eeee;
+    color: var(--fi-red);
+}
+
+.result-badge.is-found {
+    background: #e9f7ef;
+    color: #1e7e43;
+}
+
+.result-badge.is-empty {
+    background: #fff1e8;
+    color: #b64612;
+}
+
+.admin-inline-link {
+    color: var(--fi-red);
+    display: inline-block;
+    font-size: 0.84rem;
+    font-weight: 800;
+    margin-top: 0.2rem;
+    text-decoration: none;
 }
 
 .quick-stock-form {
@@ -1355,6 +1403,10 @@ h1 {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .admin-filter-bar {
+        grid-template-columns: 1fr 1fr;
+    }
+
     .metrics-grid,
     .insight-grid,
     .two-columns {
@@ -1385,6 +1437,15 @@ h1 {
 
     .admin-main {
         padding: 1rem;
+    }
+
+    .admin-filter-bar,
+    .admin-filter-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-filter-actions {
+        flex-direction: column;
     }
 
     .admin-action-row,

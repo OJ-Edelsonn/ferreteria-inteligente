@@ -108,10 +108,71 @@ class InteractionReportModel
     public function recent(int $limit = 20): array
     {
         $stmt = $this->db->prepare(
-            "SELECT i.tipo_interaccion, i.termino_busqueda, i.resultados, i.ip, i.fecha, p.nombre AS producto
+            "SELECT i.tipo_interaccion, i.producto_id, i.termino_busqueda, i.resultados, i.ip, i.fecha, p.nombre AS producto
              FROM interacciones i
              LEFT JOIN productos p ON p.id = i.producto_id
              ORDER BY i.fecha DESC, i.id DESC
+             LIMIT :limit"
+        );
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    public function filteredRecent(
+        string $type = '',
+        string $resultStatus = '',
+        string $term = '',
+        int $limit = 50
+    ): array {
+        $sql = "SELECT i.tipo_interaccion, i.producto_id, i.termino_busqueda, i.resultados, i.ip, i.fecha, p.nombre AS producto
+                FROM interacciones i
+                LEFT JOIN productos p ON p.id = i.producto_id
+                WHERE 1 = 1";
+        $params = [];
+
+        if (in_array($type, ['busqueda', 'producto_visto'], true)) {
+            $sql .= ' AND i.tipo_interaccion = :type';
+            $params['type'] = $type;
+        }
+
+        if ($resultStatus === 'sin_resultados') {
+            $sql .= " AND i.tipo_interaccion = 'busqueda' AND i.resultados = 0";
+        } elseif ($resultStatus === 'con_resultados') {
+            $sql .= " AND i.tipo_interaccion = 'busqueda' AND i.resultados > 0";
+        }
+
+        if ($term !== '') {
+            $sql .= ' AND (i.termino_busqueda LIKE :term_search OR p.nombre LIKE :term_product)';
+            $params['term_search'] = '%' . $term . '%';
+            $params['term_product'] = '%' . $term . '%';
+        }
+
+        $sql .= ' ORDER BY i.fecha DESC, i.id DESC LIMIT :limit';
+
+        $stmt = $this->db->prepare($sql);
+        foreach ($params as $key => $value) {
+            $stmt->bindValue(':' . $key, $value);
+        }
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    public function searchesWithResultSummary(int $limit = 8): array
+    {
+        $stmt = $this->db->prepare(
+            "SELECT termino_busqueda,
+                    COUNT(*) AS total,
+                    SUM(CASE WHEN resultados = 0 THEN 1 ELSE 0 END) AS sin_resultados,
+                    MAX(fecha) AS ultima_fecha
+             FROM interacciones
+             WHERE tipo_interaccion = 'busqueda'
+               AND termino_busqueda IS NOT NULL
+             GROUP BY termino_busqueda
+             ORDER BY sin_resultados DESC, total DESC, ultima_fecha DESC
              LIMIT :limit"
         );
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);

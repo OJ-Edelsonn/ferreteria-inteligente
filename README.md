@@ -42,9 +42,10 @@ ferreteria-inteligente/
 4. Crear una base de datos llamada `ferreteria_inteligente`.
 5. Importar `database/schema.sql` desde phpMyAdmin.
 6. Importar `database/seed_catalog.sql` para cargar el catálogo completo.
-7. Copiar `config/config.example.php` como `config/config.php`.
-8. Revisar credenciales locales en `config/config.php`.
-9. Abrir `http://localhost/ferreteria-inteligente/public/`.
+7. Opcional: importar `database/seed_interactions_demo.sql` para cargar interacciones demo del panel admin.
+8. Copiar `config/config.example.php` como `config/config.php`.
+9. Revisar credenciales locales en `config/config.php`.
+10. Abrir `http://localhost/ferreteria-inteligente/public/`.
 
 ## URLs Locales
 
@@ -79,7 +80,8 @@ ferreteria-inteligente/
 - Gestión rápida de stock con filtro de productos bajos y ordenamiento del catálogo.
 - Dashboard con métricas y gráficos.
 - Panel admin con alertas de stock bajo, demanda por categoría e inventario estimado.
-- Vista admin de interacciones capturadas.
+- Vista admin de interacciones capturadas con filtros, etiquetas claras y enlaces de revisión.
+- Datos demo opcionales para probar dashboard e interacciones en local.
 
 ## Catálogo Migrado
 
