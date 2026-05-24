@@ -51,14 +51,54 @@ class InteractionReportModel
     public function topViewedProducts(int $limit = 8): array
     {
         $stmt = $this->db->prepare(
-            "SELECT p.nombre, COUNT(i.id) AS total, MAX(i.fecha) AS ultima_fecha
+            "SELECT p.id, p.nombre, p.stock, c.nombre AS categoria, COUNT(i.id) AS total, MAX(i.fecha) AS ultima_fecha
              FROM interacciones i
              INNER JOIN productos p ON p.id = i.producto_id
+             INNER JOIN categorias c ON c.id = p.categoria_id
              WHERE i.tipo_interaccion = 'producto_visto'
-             GROUP BY p.id, p.nombre
+             GROUP BY p.id, p.nombre, p.stock, c.nombre
              ORDER BY total DESC, ultima_fecha DESC
              LIMIT :limit"
         );
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    public function categoryInterest(int $limit = 6): array
+    {
+        $stmt = $this->db->prepare(
+            "SELECT c.nombre AS categoria, COUNT(i.id) AS total, MAX(i.fecha) AS ultima_fecha
+             FROM interacciones i
+             INNER JOIN productos p ON p.id = i.producto_id
+             INNER JOIN categorias c ON c.id = p.categoria_id
+             WHERE i.tipo_interaccion = 'producto_visto'
+             GROUP BY c.id, c.nombre
+             ORDER BY total DESC, ultima_fecha DESC
+             LIMIT :limit"
+        );
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    public function topViewedLowStockProducts(int $threshold = 10, int $limit = 5): array
+    {
+        $stmt = $this->db->prepare(
+            "SELECT p.id, p.nombre, p.stock, c.nombre AS categoria, COUNT(i.id) AS total, MAX(i.fecha) AS ultima_fecha
+             FROM interacciones i
+             INNER JOIN productos p ON p.id = i.producto_id
+             INNER JOIN categorias c ON c.id = p.categoria_id
+             WHERE i.tipo_interaccion = 'producto_visto'
+               AND p.activo = 1
+               AND p.stock <= :threshold
+             GROUP BY p.id, p.nombre, p.stock, c.nombre
+             ORDER BY total DESC, p.stock ASC, ultima_fecha DESC
+             LIMIT :limit"
+        );
+        $stmt->bindValue(':threshold', $threshold, PDO::PARAM_INT);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
 

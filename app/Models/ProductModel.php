@@ -154,6 +154,45 @@ class ProductModel
         return (int) $stmt->fetchColumn();
     }
 
+    public function lowStockProducts(int $threshold = 10, int $limit = 8): array
+    {
+        $stmt = $this->db->prepare(
+            "SELECT p.id, p.nombre, p.precio, p.stock, c.nombre AS categoria
+             FROM productos p
+             INNER JOIN categorias c ON c.id = p.categoria_id
+             WHERE p.activo = 1 AND p.stock <= :threshold
+             ORDER BY p.stock ASC, p.nombre ASC
+             LIMIT :limit"
+        );
+        $stmt->bindValue(':threshold', $threshold, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    public function inventoryByCategory(int $limit = 8): array
+    {
+        $stmt = $this->db->prepare(
+            "SELECT c.nombre AS categoria,
+                    COUNT(p.id) AS productos,
+                    COALESCE(SUM(p.stock), 0) AS unidades,
+                    COALESCE(SUM(p.precio * p.stock), 0) AS valor_estimado,
+                    SUM(CASE WHEN p.stock <= 10 THEN 1 ELSE 0 END) AS stock_bajo
+             FROM categorias c
+             LEFT JOIN productos p ON p.categoria_id = c.id AND p.activo = 1
+             WHERE c.activo = 1
+             GROUP BY c.id, c.nombre
+             HAVING productos > 0
+             ORDER BY unidades ASC, c.nombre ASC
+             LIMIT :limit"
+        );
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
     public function create(array $data): int
     {
         $stmt = $this->db->prepare(

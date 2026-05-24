@@ -13,22 +13,36 @@ $conn = getConnection();
 $productModel = new ProductModel($conn);
 $reportModel = new InteractionReportModel($conn);
 
+$stockThreshold = 10;
 $metrics = [
     'productos' => $productModel->countActive(),
-    'stock_bajo' => $productModel->countLowStock(),
+    'stock_bajo' => $productModel->countLowStock($stockThreshold),
     'busquedas' => $reportModel->totalSearches(),
     'vistas' => $reportModel->totalProductViews(),
+    'sin_resultados' => $reportModel->searchesWithoutResults(),
 ];
 $topSearches = $reportModel->topSearches(5);
 $topProducts = $reportModel->topViewedProducts(5);
 $withoutResults = $reportModel->searchesWithoutResultsList(5);
 $interactionsByDay = $reportModel->interactionsByDay(14);
 $interactionsByType = $reportModel->interactionsByType();
+$lowStockProducts = $productModel->lowStockProducts($stockThreshold, 6);
+$inventoryByCategory = $productModel->inventoryByCategory(6);
+$categoryInterest = $reportModel->categoryInterest(6);
+$demandWithLowStock = $reportModel->topViewedLowStockProducts($stockThreshold, 5);
 
 $dailyLabels = array_map(fn(array $row): string => date('d/m', strtotime((string) $row['dia'])), $interactionsByDay);
 $dailyData = array_map(fn(array $row): int => (int) $row['total'], $interactionsByDay);
 $typeLabels = array_map(fn(array $row): string => (string) $row['tipo_interaccion'], $interactionsByType);
 $typeData = array_map(fn(array $row): int => (int) $row['total'], $interactionsByType);
+$searchGapRate = $metrics['busquedas'] > 0
+    ? (int) round(($metrics['sin_resultados'] / $metrics['busquedas']) * 100)
+    : 0;
+$topLowStockProduct = $lowStockProducts[0] ?? null;
+$topDemandCategory = $categoryInterest[0] ?? null;
+$maxCategoryInterest = !empty($categoryInterest)
+    ? max(array_map(static fn(array $row): int => (int) $row['total'], $categoryInterest))
+    : 0;
 
 $pageTitle = 'Dashboard - ' . BUSINESS_NAME;
 $pageHeading = 'Dashboard';
@@ -55,6 +69,39 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
             </article>
         </section>
 
+        <section class="admin-grid insight-grid mt-4">
+            <article class="admin-card insight-card">
+                <span>Reposición</span>
+                <?php if ($topLowStockProduct): ?>
+                    <strong><?= e($topLowStockProduct['nombre']) ?></strong>
+                    <p>Quedan <?= e((int) $topLowStockProduct['stock']) ?> unidades. Es el producto más urgente dentro del umbral de stock bajo.</p>
+                <?php else: ?>
+                    <strong>Stock estable</strong>
+                    <p>No hay productos activos con stock menor o igual a <?= e($stockThreshold) ?> unidades.</p>
+                <?php endif; ?>
+                <a href="<?= e(BASE_URL) ?>/admin/productos.php">Revisar productos</a>
+            </article>
+
+            <article class="admin-card insight-card">
+                <span>Oportunidad de catálogo</span>
+                <strong><?= e($searchGapRate) ?>%</strong>
+                <p><?= e($metrics['sin_resultados']) ?> búsquedas no tuvieron resultados. Conviene revisar nombres, sinónimos o productos faltantes.</p>
+                <a href="<?= e(BASE_URL) ?>/admin/interacciones.php">Ver búsquedas</a>
+            </article>
+
+            <article class="admin-card insight-card">
+                <span>Demanda observada</span>
+                <?php if ($topDemandCategory): ?>
+                    <strong><?= e($topDemandCategory['categoria']) ?></strong>
+                    <p>Es la categoría con más vistas registradas: <?= e((int) $topDemandCategory['total']) ?> interacciones.</p>
+                <?php else: ?>
+                    <strong>Sin tendencia aún</strong>
+                    <p>Cuando los clientes vean productos, aquí aparecerá la categoría con mayor interés.</p>
+                <?php endif; ?>
+                <a href="<?= e(BASE_URL) ?>/admin/interacciones.php">Ver interacciones</a>
+            </article>
+        </section>
+
         <section class="admin-grid two-columns mt-4">
             <article class="admin-card chart-card">
                 <div class="section-heading">
@@ -77,6 +124,101 @@ require_once __DIR__ . '/../../app/Views/partials/admin-header.php';
                     <p class="text-secondary mb-0">Aún no hay interacciones registradas.</p>
                 <?php else: ?>
                     <canvas id="typeChart" height="180"></canvas>
+                <?php endif; ?>
+            </article>
+        </section>
+
+        <section class="admin-grid two-columns mt-4">
+            <article class="admin-card">
+                <div class="section-heading">
+                    <h2>Stock bajo</h2>
+                    <span><?= e($stockThreshold) ?> unidades o menos</span>
+                </div>
+                <?php if (empty($lowStockProducts)): ?>
+                    <p class="text-secondary mb-0">No hay productos dentro del umbral de stock bajo.</p>
+                <?php else: ?>
+                    <div class="admin-action-list">
+                        <?php foreach ($lowStockProducts as $product): ?>
+                            <div class="admin-action-row">
+                                <span>
+                                    <strong><?= e($product['nombre']) ?></strong>
+                                    <small><?= e($product['categoria']) ?> · Stock <?= e((int) $product['stock']) ?> · S/ <?= e(number_format((float) $product['precio'], 2)) ?></small>
+                                </span>
+                                <a class="btn btn-sm btn-outline-dark" href="<?= e(BASE_URL) ?>/admin/productos.php?editar=<?= e($product['id']) ?>">Editar</a>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </article>
+
+            <article class="admin-card">
+                <div class="section-heading">
+                    <h2>Demanda con stock bajo</h2>
+                    <span>Prioridad comercial</span>
+                </div>
+                <?php if (empty($demandWithLowStock)): ?>
+                    <p class="text-secondary mb-0">Aún no hay productos vistos que también tengan stock bajo.</p>
+                <?php else: ?>
+                    <div class="admin-action-list">
+                        <?php foreach ($demandWithLowStock as $product): ?>
+                            <div class="admin-action-row">
+                                <span>
+                                    <strong><?= e($product['nombre']) ?></strong>
+                                    <small><?= e($product['categoria']) ?> · <?= e((int) $product['total']) ?> vistas · Stock <?= e((int) $product['stock']) ?></small>
+                                </span>
+                                <a class="btn btn-sm btn-outline-dark" href="<?= e(BASE_URL) ?>/admin/productos.php?editar=<?= e($product['id']) ?>">Editar</a>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </article>
+        </section>
+
+        <section class="admin-grid two-columns mt-4">
+            <article class="admin-card">
+                <div class="section-heading">
+                    <h2>Interés por categoría</h2>
+                    <span>Según productos vistos</span>
+                </div>
+                <?php if (empty($categoryInterest)): ?>
+                    <p class="text-secondary mb-0">Aún no hay vistas de productos para comparar categorías.</p>
+                <?php else: ?>
+                    <div class="bar-list">
+                        <?php foreach ($categoryInterest as $row): ?>
+                            <?php $barWidth = $maxCategoryInterest > 0 ? max(8, (int) round(((int) $row['total'] / $maxCategoryInterest) * 100)) : 0; ?>
+                            <div class="bar-row">
+                                <div class="bar-label">
+                                    <span><?= e($row['categoria']) ?></span>
+                                    <strong><?= e((int) $row['total']) ?> vistas</strong>
+                                </div>
+                                <div class="bar-track">
+                                    <span style="width: <?= e($barWidth) ?>%"></span>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </article>
+
+            <article class="admin-card">
+                <div class="section-heading">
+                    <h2>Inventario por categoría</h2>
+                    <span>Valor estimado</span>
+                </div>
+                <?php if (empty($inventoryByCategory)): ?>
+                    <p class="text-secondary mb-0">No hay categorías con productos activos.</p>
+                <?php else: ?>
+                    <div class="admin-action-list">
+                        <?php foreach ($inventoryByCategory as $row): ?>
+                            <div class="admin-action-row">
+                                <span>
+                                    <strong><?= e($row['categoria']) ?></strong>
+                                    <small><?= e((int) $row['productos']) ?> productos · <?= e((int) $row['unidades']) ?> unidades · <?= e((int) $row['stock_bajo']) ?> con stock bajo</small>
+                                </span>
+                                <strong>S/ <?= e(number_format((float) $row['valor_estimado'], 2)) ?></strong>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 <?php endif; ?>
             </article>
         </section>

@@ -77,6 +77,7 @@ ferreteria-inteligente/
 - Protección de rutas privadas.
 - CRUD de productos desde panel admin.
 - Dashboard con métricas y gráficos.
+- Panel admin con alertas de stock bajo, demanda por categoría e inventario estimado.
 - Vista admin de interacciones capturadas.
 
 ## Catálogo Migrado
