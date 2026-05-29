@@ -9,9 +9,8 @@ InfinityFree para una demo gratuita de J&S Ferretería.
 1. Crear cuenta en InfinityFree.
 2. Crear un sitio gratuito con subdominio.
 3. Crear una base de datos MySQL desde el panel.
-4. Importar `database/schema.sql` desde phpMyAdmin del hosting.
-5. Importar `database/seed_catalog.sql` para cargar los 87 productos e imagenes referenciales.
-6. Crear `config/config.php` con credenciales de produccion.
+4. Importar `database/deploy_infinityfree_clean.sql` desde phpMyAdmin del hosting.
+5. Crear `config/config.php` con credenciales de produccion.
 7. Subir archivos por FileZilla al directorio publico del hosting.
 8. Probar URL final.
 
@@ -28,7 +27,7 @@ declare(strict_types=1);
 
 const APP_NAME = 'J&S Ferretería Inteligente';
 const APP_ENV = 'production';
-const BASE_URL = 'https://tu-subdominio.infinityfreeapp.com/public';
+const BASE_URL = 'https://jsferreteriaquiparacra.infinityfreeapp.com/public';
 
 const BUSINESS_NAME = 'J&S Ferretería';
 const BUSINESS_LOCATION = 'Quiparacra - Pasco';
@@ -37,9 +36,9 @@ const BUSINESS_WHATSAPP = '51900749742';
 const BUSINESS_HOURS = 'Lunes a sábado: 7:00am - 7:00pm';
 const BUSINESS_DELIVERY_AREA = 'Quiparacra y alrededores';
 
-const DB_HOST = 'sqlXXX.infinityfree.com';
-const DB_NAME = 'if0_XXXXXXX_ferreteria_inteligente';
-const DB_USER = 'if0_XXXXXXX';
+const DB_HOST = 'sql303.infinityfree.com';
+const DB_NAME = 'if0_42043751_ferrecodex';
+const DB_USER = 'if0_42043751';
 const DB_PASS = 'CONTRASENA_DEL_HOSTING';
 const DB_CHARSET = 'utf8mb4';
 ```
